@@ -1,0 +1,256 @@
+/* FONTS */
+@import url(../css/clash-display.css);
+
+/* VARIABLES */
+:root {
+    --c-dark: #2c2c54;
+    --c-brand: #7d5fff;          /* soft purple */
+    --c-brand-light: #a29bfe;
+    --c-accent: #f9ca24;         /* gold */
+    --c-body: #555;
+    --c-bg: #f9f9ff;
+    --c-white: #ffffff;
+
+    --font-base: "ClashDisplay", sans-serif;
+    --box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+    --transition: all 0.4s ease;
+}
+
+/* BODY */
+body {
+    font-family: var(--font-base);
+    line-height: 1.7;
+    color: var(--c-body);
+    background-color: var(--c-bg);
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--c-dark);
+}
+
+/* LINKS */
+a {
+    text-decoration: none;
+    color: var(--c-brand);
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--c-accent);
+}
+
+/* IMAGES */
+img {
+    max-width: 100%;
+}
+
+/* SECTION */
+.section-padding {
+    padding: 120px 0;
+}
+
+.theme-shadow {
+    box-shadow: var(--box-shadow);
+    background: var(--c-white);
+    border-radius: 12px;
+}
+
+/* NAVBAR */
+.navbar {
+    background: var(--c-white);
+    box-shadow: var(--box-shadow);
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: var(--c-dark);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--c-brand);
+}
+
+/* BUTTON */
+.btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 6px;
+    padding: 10px 24px;
+}
+
+.btn-brand {
+    background: linear-gradient(45deg, #7d5fff, #a29bfe);
+    border: none;
+    color: white;
+}
+
+.btn-brand:hover {
+    background: linear-gradient(45deg, #a29bfe, #7d5fff);
+}
+
+/* HERO */
+#hero {
+    background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+                url('../images/astro-light.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* SECTION TITLE */
+.section-title {
+    margin-bottom: 60px;
+}
+
+.section-title .line {
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #7d5fff, #f9ca24);
+    margin: 16px auto;
+}
+
+.section-title p {
+    max-width: 500px;
+    margin: auto;
+}
+
+/* IMAGE ZOOM */
+.image-zoom-wrapper {
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.image-zoom-wrapper img {
+    transition: var(--transition);
+}
+
+.image-zoom:hover img {
+    transform: scale(1.1);
+}
+
+/* ICONBOX */
+.iconbox {
+    width: 90px;
+    height: 90px;
+    background: #f1f2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--c-brand);
+    font-size: 28px;
+}
+
+/* SERVICES */
+.service {
+    background: var(--c-white);
+    border-radius: 12px;
+    padding: 30px;
+    transition: var(--transition);
+    box-shadow: var(--box-shadow);
+}
+
+.service:hover {
+    transform: translateY(-8px);
+}
+
+.service:hover .iconbox {
+    background: var(--c-brand);
+    color: white;
+}
+
+/* COUNTER */
+#counter {
+    background: #eef0ff;
+}
+
+/* PORTFOLIO */
+.portfolio-item .iconbox {
+    background: var(--c-brand);
+    color: white;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.portfolio-item:hover .iconbox {
+    opacity: 1;
+}
+
+/* REVIEWS */
+.review small {
+    font-weight: 600;
+    color: var(--c-accent);
+}
+
+.review-head {
+    background: var(--c-white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+/* CONTACT */
+#contact {
+    background: #f1f2ff;
+}
+
+#contact .form-control {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+#contact .form-control:focus {
+    border-color: var(--c-brand);
+    box-shadow: none;
+}
+
+/* FOOTER */
+footer {
+    background: #2c2c54;
+    color: white;
+    padding-top: 80px;
+}
+
+.footer-top {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 40px;
+}
+
+.footer-bottom {
+    padding: 20px 0;
+}
+
+footer a {
+    color: rgba(255,255,255,0.7);
+}
+
+footer a:hover {
+    color: white;
+}
+
+footer .line {
+    width: 40px;
+    height: 4px;
+    background: var(--c-accent);
+    margin: 10px 0;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
+
+.social-icons a:hover {
+    background: var(--c-brand);
+}

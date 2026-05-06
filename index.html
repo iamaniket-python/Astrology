@@ -1,286 +1,1545 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Astrology</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Astro Anjali Sharmma56</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
 
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --deep: #0d0a1a;
+      --deep2: #130f2a;
+      --deep3: #1c1638;
+      --purple: #7c3aed;
+      --purple-soft: #a78bfa;
+      --rose: #e879a0;
+      --cream: #f9f3e8;
+      --text-light: #ccc5e0;
+      --card-bg: rgba(255,255,255,0.03);
+      --card-border: rgba(255,255,255,0.08);
+      --input-bg: rgba(255,255,255,0.04);
+      --input-border: rgba(255,255,255,0.1);
+      --footer-bg: #080612;
+      --section-title-color: #fff;
+      --body-text: #ccc5e0;
+    }
 
-    <style>
-        body {
-            background-color: #f9f9ff;
-            color: #333;
-        }
+    /* LIGHT MODE */
+    body.light {
+      --deep: #f5f0ff;
+      --deep2: #ede6ff;
+      --deep3: #e0d6ff;
+      --text-light: #3b2d6e;
+      --card-bg: rgba(255,255,255,0.85);
+      --card-border: rgba(124,58,237,0.15);
+      --input-bg: rgba(255,255,255,0.9);
+      --input-border: rgba(124,58,237,0.2);
+      --footer-bg: #1c1638;
+      --section-title-color: #1c1638;
+      --body-text: #4a3b7a;
+    }
 
-        .navbar {
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
+    body.light .navbar {
+      background: rgba(237,230,255,0.95) !important;
+      border-bottom-color: rgba(201,168,76,0.3) !important;
+    }
 
-        .navbar-brand {
-            font-weight: bold;
-            color: #7d5fff;
-        }
+    body.light .nav-links a { color: #3b2d6e; }
+    body.light .hamburger { color: var(--purple); }
 
-        .nav-link {
-            color: #333;
-        }
+    body.light .hero-title { color: #1c1638; }
+    body.light .hero-badge { background: rgba(201,168,76,0.15); }
 
-        .nav-link:hover {
-            color: #7d5fff;
-        }
+    body.light .orb1 { background: rgba(124,58,237,0.12); }
+    body.light .orb2 { background: rgba(201,168,76,0.1); }
+    body.light .orb3 { background: rgba(232,121,160,0.08); }
 
-        .btn-brand {
-            background: #7d5fff;
-            color: white;
-            border-radius: 6px;
-        }
+    body.light body::before { opacity: 0; }
 
-        .btn-brand:hover {
-            background: #5a4bd1;
-        }
+    body.light .section-title { color: #1c1638; }
+    body.light .about-img-box { background: linear-gradient(135deg, #e0d6ff, #c4b5fd 50%, #e0d6ff); }
+    body.light .about-badge-float { background: #fff; border-color: rgba(201,168,76,0.4); }
+    body.light .about-list li { border-bottom-color: rgba(0,0,0,0.07); color: #3b2d6e; }
 
-        section {
-            padding: 80px 0;
-        }
+    body.light .service-card { background: #fff; border-color: rgba(124,58,237,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    body.light .service-card:hover { background: #faf7ff; border-color: rgba(201,168,76,0.4); }
+    body.light .service-card h5 { color: #1c1638; }
+    body.light .service-card p { color: #6b5b9e; }
 
-        #hero {
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
-                        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
-            background-size: cover;
-        }
+    body.light .class-card { background: #fff; border-color: rgba(124,58,237,0.12); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    body.light .class-card h5 { color: #1c1638; }
+    body.light .class-card p { color: #6b5b9e; }
+    body.light .class-meta-item { color: #5a4b8a; }
+    body.light .class-footer { border-top-color: rgba(0,0,0,0.07); }
 
-        .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
+    body.light .product-card { background: #fff; border-color: rgba(124,58,237,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    body.light .product-body h5 { color: #1c1638; }
+    body.light .product-body p { color: #6b5b9e; }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    body.light .zodiac-card { background: #fff; border-color: rgba(124,58,237,0.12); }
+    body.light .zodiac-card:hover { background: #faf7ff; }
+    body.light .zodiac-name { color: #3b2d6e; }
+    body.light .zodiac-dates { color: #8b7abf; }
 
-        footer {
-            background: #2c2c54;
-            color: white;
-        }
-    </style>
+    body.light .testimonial-card { background: #fff; border-color: rgba(124,58,237,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    body.light .testimonial-card p { color: #3b2d6e; }
+    body.light .author-name { color: #1c1638; }
+    body.light .author-city { color: #8b7abf; }
+
+    body.light .contact-info-item { border-bottom-color: rgba(0,0,0,0.07); }
+    body.light .contact-value { color: #3b2d6e; }
+    body.light .form-control { background: #fff; border-color: rgba(124,58,237,0.2); color: #1c1638; }
+    body.light .form-control::placeholder { color: #aaa; }
+    body.light .form-control:focus { border-color: var(--gold); background: #fff; }
+    body.light .form-label { color: #5a4b8a; }
+    body.light #contact > .container > .contact-grid > div:last-child > div { background: #fff; border-color: rgba(124,58,237,0.12); box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
+
+    body.light footer { background: #1c1638; }
+    body.light .footer-bottom { border-top-color: rgba(255,255,255,0.1); }
+
+    body.light .hero-sub { color: #5a4b8a; }
+    body.light .stat-label { color: #7a6baa; }
+    body.light .gold-line { background: linear-gradient(90deg, var(--gold), rgba(201,168,76,0.1)); }
+    body.light .section-sub { color: #5a4b8a; }
+
+    body.light #hero { background: linear-gradient(135deg, #f0ebff, #ede6ff); }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: rgba(201,168,76,0.1);
+      color: var(--gold);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { background: rgba(201,168,76,0.2); transform: rotate(20deg); }
+    body.light .theme-toggle { border-color: rgba(124,58,237,0.3); background: rgba(124,58,237,0.1); color: var(--purple); }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      color: var(--text-light);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* STARS BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 60% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 20% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 90%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.5) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(13, 10, 26, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 16px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .brand {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), #e8c55a);
+      color: var(--deep) !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .hamburger { display: none; cursor: pointer; color: var(--gold); font-size: 1.5rem; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 24px;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb1 { width: 500px; height: 500px; background: rgba(124,58,237,0.25); top: -100px; left: -100px; animation: drift 8s ease-in-out infinite alternate; }
+    .orb2 { width: 400px; height: 400px; background: rgba(201,168,76,0.15); bottom: -50px; right: -50px; animation: drift 10s ease-in-out infinite alternate-reverse; }
+    .orb3 { width: 300px; height: 300px; background: rgba(232,121,160,0.12); top: 50%; right: 20%; animation: drift 7s ease-in-out infinite alternate; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(30px, 30px) scale(1.1); }
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span { color: var(--gold); }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), #e8c55a);
+      color: var(--deep);
+      padding: 14px 32px;
+      border: none;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.4); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      padding: 14px 32px;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.1); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      color: var(--gold);
+    }
+    .stat-label { font-size: 0.8rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* SECTION COMMON */
+    section { padding: 100px 0; position: relative; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-light);
+      font-style: italic;
+      max-width: 560px;
+    }
+
+    /* DIVIDER */
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 20px 0;
+    }
+
+    /* ABOUT */
+    #about { background: var(--deep2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img-box {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--deep3), var(--purple) 50%, var(--deep3));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-img-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 40% 30%, rgba(201,168,76,0.2), transparent 60%);
+    }
+
+    .about-badge-float {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--deep2);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 16px 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .about-badge-float .num {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      display: block;
+    }
+
+    .about-list { list-style: none; margin-top: 24px; }
+    .about-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+    .about-list li i { color: var(--gold); font-size: 1.1rem; }
+
+    /* SERVICES */
+    #services { background: var(--deep); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 32px 28px;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--purple));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(201,168,76,0.3);
+      transform: translateY(-6px);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      background: rgba(201,168,76,0.1);
+    }
+
+    .service-card h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .service-card p {
+      font-size: 0.87rem;
+      color: #999;
+      line-height: 1.7;
+    }
+
+    .service-price {
+      margin-top: 20px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* CLASSES */
+    #classes { background: var(--deep2); }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 60px;
+    }
+
+    .class-card {
+      background: var(--deep3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+    }
+
+    .class-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .class-accent {
+      width: 6px;
+      flex-shrink: 0;
+    }
+
+    .class-body { padding: 28px 24px; flex: 1; }
+
+    .class-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    .class-card h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .class-card p { font-size: 0.87rem; color: #999; line-height: 1.7; margin-bottom: 16px; }
+
+    .class-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .class-meta-item { font-size: 0.82rem; color: var(--text-light); display: flex; align-items: center; gap: 6px; }
+    .class-meta-item i { color: var(--gold); }
+
+    .class-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .class-price { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); }
+
+    .btn-small {
+      background: linear-gradient(135deg, var(--gold), #e8c55a);
+      color: var(--deep);
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-small:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* PRODUCTS */
+    #products { background: var(--deep); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .product-card {
+      background: var(--deep2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201,168,76,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .product-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-body { padding: 20px; }
+
+    .product-tag {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--purple-soft);
+      margin-bottom: 8px;
+    }
+
+    .product-body h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .product-body p { font-size: 0.82rem; color: #888; line-height: 1.6; margin-bottom: 16px; }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price { font-family: 'Cinzel Decorative', serif; font-size: 1rem; color: var(--gold); }
+
+    /* ZODIAC */
+    #zodiac { background: var(--deep2); }
+
+    .zodiac-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      margin-top: 60px;
+    }
+
+    .zodiac-card {
+      background: var(--deep3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 20px 12px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .zodiac-card:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-4px);
+    }
+
+    .zodiac-symbol { font-size: 2rem; margin-bottom: 8px; display: block; }
+    .zodiac-name { font-size: 0.8rem; color: var(--text-light); }
+    .zodiac-dates { font-size: 0.7rem; color: #666; margin-top: 4px; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--deep); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .testimonial-card {
+      background: var(--deep2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 32px 28px;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      color: rgba(201,168,76,0.1);
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      line-height: 1;
+    }
+
+    .testimonial-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; }
+
+    .testimonial-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: #ccc;
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+
+    .author-name { font-size: 0.9rem; color: #fff; font-weight: 500; }
+    .author-city { font-size: 0.78rem; color: #666; }
+
+    /* CONTACT */
+    #contact { background: var(--deep2); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-label { font-size: 0.78rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .contact-value { color: #ddd; font-size: 0.95rem; }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-label { font-size: 0.82rem; color: #888; margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
+
+    .form-control {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: rgba(201,168,76,0.5);
+      background: rgba(201,168,76,0.03);
+    }
+
+    .form-control::placeholder { color: #555; }
+
+    textarea.form-control { resize: vertical; min-height: 120px; }
+
+    /* FOOTER */
+    footer {
+      background: #080612;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 80px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .footer-desc { font-size: 0.87rem; color: #666; line-height: 1.8; margin-bottom: 24px; }
+
+    .footer-social { display: flex; gap: 12px; }
+
+    .social-btn {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #999;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover { background: rgba(201,168,76,0.15); color: var(--gold); border-color: rgba(201,168,76,0.3); }
+
+    .footer-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: #fff; margin-bottom: 20px; font-weight: 600; }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a { color: #666; font-size: 0.87rem; text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p { font-size: 0.82rem; color: #444; }
+
+    /* FLOATING WHATSAPP */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px; height: 56px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 1.6rem;
+      text-decoration: none;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all 0.3s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--deep2); padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); gap: 16px; }
+      .about-grid, .contact-grid, .classes-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .zodiac-grid { grid-template-columns: repeat(3, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .zodiac-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">🔮 AstroGuide</a>
-
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto">
-                <li><a class="nav-link" href="#hero">Home</a></li>
-                <li><a class="nav-link" href="#about">About</a></li>
-                <li><a class="nav-link" href="#services">Services</a></li>
-                <li><a class="nav-link" href="#gallery">Gallery</a></li>
-                <li><a class="nav-link" href="#reviews">Testimonials</a></li>
-                <li><a class="nav-link" href="#contact">Contact</a></li>
-            </ul>
-        </div>
+<nav class="navbar">
+  <div class="container">
+    <a href="#hero" class="brand">🔮 Astro Anjali Sharmma56</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#zodiac">Zodiac</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle Light/Dark Mode">🌙</button>
+      <div class="hamburger" onclick="toggleNav()"><i class="ri-menu-3-line"></i></div>
     </div>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="text-center">
-    <div class="container">
-        <h1 class="display-4 fw-bold" data-aos="fade-up">Unlock Your Destiny ✨</h1>
-        <p data-aos="fade-up" data-aos-delay="200">Discover your future through astrology</p>
-        <a href="#" class="btn btn-brand mt-3" data-aos="fade-up" data-aos-delay="400">Get Horoscope</a>
+<section id="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+  <div class="hero-content">
+    <div class="hero-badge" data-aos="fade-down">✦ Trusted Since 2005 ✦</div>
+    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+      Unlock the Secrets<br>of <span>Your Destiny</span>
+    </h1>
+    <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">
+      Ancient Vedic wisdom meets modern guidance — discover what the stars hold for you
+    </p>
+    <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+      <a href="#contact" class="btn-gold">Book a Consultation</a>
+      <a href="#services" class="btn-outline">Explore Services</a>
     </div>
+    <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
+      <div class="stat">
+        <div class="stat-num">15K+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="text-center">
-    <div class="container" data-aos="fade-down">
-        <h2>About Astrology</h2>
-        <p>Astrology helps you understand your life, career, and relationships.</p>
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap" data-aos="fade-right">
+        <div class="about-img-box">🔮</div>
+        <div class="about-badge-float">
+          <span class="num">20+</span>
+          <span style="font-size:0.75rem; color:#999;">Years of<br>Practice</span>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="section-tag">✦ About Anjali Sharmma</div>
+        <h2 class="section-title">Your Cosmic Guide to Life's Journey</h2>
+        <div class="gold-line"></div>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.9; color:#bbb; font-style:italic;">
+          Anjali Sharmma is a renowned Vedic astrologer based in Begusarai, Bihar, with over 20 years of experience in reading celestial patterns. She has guided thousands of individuals through life's most pivotal moments.
+        </p>
+        <ul class="about-list">
+          <li><i class="ri-star-fill"></i> Certified Vedic Astrology Expert (ICAS, New Delhi)</li>
+          <li><i class="ri-star-fill"></i> Specialist in KP & Lal Kitab Astrology</li>
+          <li><i class="ri-star-fill"></i> Numerology & Vastu Shastra Consultant</li>
+          <li><i class="ri-star-fill"></i> Online & Offline Consultations Available</li>
+          <li><i class="ri-star-fill"></i> Featured in Dainik Jagran & Hindustan Times</li>
+        </ul>
+        <div style="margin-top: 32px;">
+          <a href="#contact" class="btn-gold">Book Free Demo</a>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services">
-    <div class="container text-center">
-        <h2 class="mb-5" data-aos="fade-down">Our Services</h2>
-
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card p-4">
-                    <i class="ri-moon-line fs-1 text-primary"></i>
-                    <h5 class="mt-3">Birth Chart</h5>
-                    <p>Know your destiny in detail</p>
-                </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="card p-4">
-                    <i class="ri-heart-line fs-1 text-danger"></i>
-                    <h5 class="mt-3">Love Match</h5>
-                    <p>Check compatibility</p>
-                </div>
-            </div>
-
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="card p-4">
-                    <i class="ri-briefcase-line fs-1 text-success"></i>
-                    <h5 class="mt-3">Career Advice</h5>
-                    <p>Best career path guidance</p>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="text-center" data-aos="fade-down">
+      <div class="section-tag">✦ What We Offer</div>
+      <h2 class="section-title">Our Astrology Services</h2>
+      <div class="gold-line" style="margin: 20px auto;"></div>
+      <p class="section-sub" style="margin: 0 auto;">Complete cosmic guidance for every area of your life</p>
     </div>
+
+    <div class="services-grid">
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-icon">🌙</div>
+        <h5>Janam Kundali (Birth Chart)</h5>
+        <p>Detailed analysis of your birth chart revealing personality, strengths, life path, and destiny based on planetary positions.</p>
+        <div class="service-price">Starting ₹500</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="service-icon">💕</div>
+        <h5>Kundali Milan (Love Match)</h5>
+        <p>Complete 36-guna matching for marriage compatibility, assessing mental, physical & spiritual harmony between partners.</p>
+        <div class="service-price">Starting ₹399</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-icon">💼</div>
+        <h5>Career & Business Guidance</h5>
+        <p>Discover your most favorable profession, business timing, and planetary yogas for wealth and career success.</p>
+        <div class="service-price">Starting ₹599</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+        <div class="service-icon">🏠</div>
+        <h5>Vastu Shastra</h5>
+        <p>Scientific arrangement of your home or office based on cosmic energy flow to invite prosperity, health & harmony.</p>
+        <div class="service-price">Starting ₹800</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-icon">🔢</div>
+        <h5>Numerology Reading</h5>
+        <p>Unlock the hidden power of your name and birth number to understand your life's purpose and lucky periods.</p>
+        <div class="service-price">Starting ₹299</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="350">
+        <div class="service-icon">✋</div>
+        <h5>Palmistry (Hast Rekha)</h5>
+        <p>Read the lines, mounts and signs on your palm to predict future events, health trends and lifespan insights.</p>
+        <div class="service-price">Starting ₹350</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-icon">💎</div>
+        <h5>Gemstone Recommendation</h5>
+        <p>Personalized Navratna gemstone prescription to strengthen weak planets and attract wealth, health and success.</p>
+        <div class="service-price">Starting ₹399</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="450">
+        <div class="service-icon">🪬</div>
+        <h5>Mangal Dosh Analysis</h5>
+        <p>Thorough examination of Mangal Dosh and remedies to ensure a happy, peaceful and long-lasting marriage.</p>
+        <div class="service-price">Starting ₹499</div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+        <div class="service-icon">📅</div>
+        <h5>Muhurat Selection</h5>
+        <p>Auspicious timing for weddings, business launches, travel, property purchase and all major life decisions.</p>
+        <div class="service-price">Starting ₹299</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery">
-    <div class="container text-center">
-        <h2 class="mb-5" data-aos="fade-down">Zodiac Gallery</h2>
-
-        <div class="row g-4">
-            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
-                <div class="card">
-                    <img src="https://source.unsplash.com/300x300/?aries" class="card-img-top">
-                    <div class="card-body">♈ Aries</div>
-                </div>
-            </div>
-
-            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
-                <div class="card">
-                    <img src="https://source.unsplash.com/300x300/?taurus" class="card-img-top">
-                    <div class="card-body">♉ Taurus</div>
-                </div>
-            </div>
-
-            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="300">
-                <div class="card">
-                    <img src="https://source.unsplash.com/300x300/?gemini" class="card-img-top">
-                    <div class="card-body">♊ Gemini</div>
-                </div>
-            </div>
-
-            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-                <div class="card">
-                    <img src="https://source.unsplash.com/300x300/?cancer-zodiac" class="card-img-top">
-                    <div class="card-body">♋ Cancer</div>
-                </div>
-            </div>
-        </div>
+<!-- CLASSES -->
+<section id="classes">
+  <div class="container">
+    <div data-aos="fade-down">
+      <div class="section-tag">✦ Learn Astrology</div>
+      <h2 class="section-title">Astrology Classes & Courses</h2>
+      <div class="gold-line"></div>
+      <p class="section-sub">Learn the ancient science from an expert — online & offline batches available</p>
     </div>
+
+    <div class="classes-grid">
+      <div class="class-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="class-accent" style="background: linear-gradient(180deg, #c9a84c, #f0d080);"></div>
+        <div class="class-body">
+          <div class="class-badge" style="background:rgba(201,168,76,0.15); color:#c9a84c;">Beginner Friendly</div>
+          <h5>Basic Vedic Astrology</h5>
+          <p>Learn the fundamentals — planets, zodiac signs, houses, nakshatras and their meanings. Perfect for absolute beginners.</p>
+          <div class="class-meta">
+            <span class="class-meta-item"><i class="ri-time-line"></i> 4 Weeks</span>
+            <span class="class-meta-item"><i class="ri-video-line"></i> Online / Offline</span>
+            <span class="class-meta-item"><i class="ri-user-line"></i> Max 10 Students</span>
+          </div>
+          <div class="class-footer">
+            <div class="class-price">₹2,500</div>
+            <a href="#contact" class="btn-small">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="class-accent" style="background: linear-gradient(180deg, #7c3aed, #a78bfa);"></div>
+        <div class="class-body">
+          <div class="class-badge" style="background:rgba(124,58,237,0.15); color:#a78bfa;">Intermediate</div>
+          <h5>Advanced Kundali Reading</h5>
+          <p>Deep dive into Dasha systems, Yogas, transit analysis, and predictive astrology techniques for accurate forecasting.</p>
+          <div class="class-meta">
+            <span class="class-meta-item"><i class="ri-time-line"></i> 6 Weeks</span>
+            <span class="class-meta-item"><i class="ri-video-line"></i> Online / Offline</span>
+            <span class="class-meta-item"><i class="ri-user-line"></i> Max 8 Students</span>
+          </div>
+          <div class="class-footer">
+            <div class="class-price">₹4,500</div>
+            <a href="#contact" class="btn-small">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="class-accent" style="background: linear-gradient(180deg, #e879a0, #f9a8d4);"></div>
+        <div class="class-body">
+          <div class="class-badge" style="background:rgba(232,121,160,0.15); color:#e879a0;">Popular</div>
+          <h5>Numerology & Name Correction</h5>
+          <p>Understand numerology principles and how to correct names for luck, business, and personal success.</p>
+          <div class="class-meta">
+            <span class="class-meta-item"><i class="ri-time-line"></i> 2 Weeks</span>
+            <span class="class-meta-item"><i class="ri-video-line"></i> Online Only</span>
+            <span class="class-meta-item"><i class="ri-user-line"></i> Max 15 Students</span>
+          </div>
+          <div class="class-footer">
+            <div class="class-price">₹1,800</div>
+            <a href="#contact" class="btn-small">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="class-accent" style="background: linear-gradient(180deg, #10b981, #6ee7b7);"></div>
+        <div class="class-body">
+          <div class="class-badge" style="background:rgba(16,185,129,0.15); color:#10b981;">Professional</div>
+          <h5>Complete Astrology Diploma</h5>
+          <p>Comprehensive 3-month program covering Vedic astrology, KP system, Vastu, Numerology — become a certified astrologer.</p>
+          <div class="class-meta">
+            <span class="class-meta-item"><i class="ri-time-line"></i> 3 Months</span>
+            <span class="class-meta-item"><i class="ri-video-line"></i> Online / Offline</span>
+            <span class="class-meta-item"><i class="ri-award-line"></i> Certificate Provided</span>
+          </div>
+          <div class="class-footer">
+            <div class="class-price">₹12,000</div>
+            <a href="#contact" class="btn-small">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="text-center" data-aos="fade-down">
+      <div class="section-tag">✦ Sacred Collection</div>
+      <h2 class="section-title">Astrology Products</h2>
+      <div class="gold-line" style="margin: 20px auto;"></div>
+      <p class="section-sub" style="margin: 0 auto;">Energized & blessed products for protection, prosperity & cosmic harmony</p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="product-img" style="background: linear-gradient(135deg, #1c1638, #2d1b69);">💎</div>
+        <div class="product-body">
+          <div class="product-tag">Gemstone</div>
+          <h5>Original Ruby (Manik)</h5>
+          <p>Sun-powered gemstone for leadership, health & vitality. Certified & energized.</p>
+          <div class="product-footer">
+            <div class="product-price">₹2,100/ct</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="product-img" style="background: linear-gradient(135deg, #0f2027, #203a43);">🪬</div>
+        <div class="product-body">
+          <div class="product-tag">Protection</div>
+          <h5>Evil Eye Bracelet</h5>
+          <p>Handmade Nazar kavach bracelet to ward off negative energies & evil eye.</p>
+          <div class="product-footer">
+            <div class="product-price">₹349</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="product-img" style="background: linear-gradient(135deg, #1a0533, #4a1472);">🌿</div>
+        <div class="product-body">
+          <div class="product-tag">Yantra</div>
+          <h5>Shree Yantra (Copper)</h5>
+          <p>Sacred geometry yantra for Goddess Lakshmi's blessings, wealth & abundance.</p>
+          <div class="product-footer">
+            <div class="product-price">₹799</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="250">
+        <div class="product-img" style="background: linear-gradient(135deg, #0c1445, #1a237e);">📿</div>
+        <div class="product-body">
+          <div class="product-tag">Rudraksha</div>
+          <h5>5-Mukhi Rudraksha Mala</h5>
+          <p>108-bead original Nepal Rudraksha mala energized with Shiva mantras for peace.</p>
+          <div class="product-footer">
+            <div class="product-price">₹1,200</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="product-img" style="background: linear-gradient(135deg, #1a1a00, #3d3d00);">🌕</div>
+        <div class="product-body">
+          <div class="product-tag">Crystal</div>
+          <h5>Rose Quartz Crystal Ball</h5>
+          <p>Premium crystal sphere for love attraction, emotional healing & harmony in relationships.</p>
+          <div class="product-footer">
+            <div class="product-price">₹650</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="350">
+        <div class="product-img" style="background: linear-gradient(135deg, #0d1f12, #1a3a25);">🧿</div>
+        <div class="product-body">
+          <div class="product-tag">Numerology</div>
+          <h5>Lucky Number Pendant</h5>
+          <p>Personalized numerology pendant in silver with your destiny number for continuous luck.</p>
+          <div class="product-footer">
+            <div class="product-price">₹899</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="product-img" style="background: linear-gradient(135deg, #1f0d0d, #3a1a1a);">🕯️</div>
+        <div class="product-body">
+          <div class="product-tag">Ritual</div>
+          <h5>Navgrah Pooja Kit</h5>
+          <p>Complete kit for all 9 planets worship with herbs, incense, oil lamps & mantras booklet.</p>
+          <div class="product-footer">
+            <div class="product-price">₹1,499</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-aos="fade-up" data-aos-delay="450">
+        <div class="product-img" style="background: linear-gradient(135deg, #1a0d2e, #2d1b5e);">📖</div>
+        <div class="product-body">
+          <div class="product-tag">Book</div>
+          <h5>Astrology Handbook (Hindi)</h5>
+          <p>Anjali Sharmma's own guide to basic Kundali reading — perfect for students & beginners.</p>
+          <div class="product-footer">
+            <div class="product-price">₹299</div>
+            <a href="#contact" class="btn-small">Order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZODIAC GALLERY -->
+<section id="zodiac">
+  <div class="container">
+    <div class="text-center" data-aos="fade-down">
+      <div class="section-tag">✦ The Twelve Signs</div>
+      <h2 class="section-title">Zodiac Gallery</h2>
+      <div class="gold-line" style="margin: 20px auto;"></div>
+    </div>
+
+    <div class="zodiac-grid">
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="50">
+        <span class="zodiac-symbol">♈</span>
+        <div class="zodiac-name">Mesh (Aries)</div>
+        <div class="zodiac-dates">Mar 21–Apr 19</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="100">
+        <span class="zodiac-symbol">♉</span>
+        <div class="zodiac-name">Vrishabh (Taurus)</div>
+        <div class="zodiac-dates">Apr 20–May 20</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="150">
+        <span class="zodiac-symbol">♊</span>
+        <div class="zodiac-name">Mithun (Gemini)</div>
+        <div class="zodiac-dates">May 21–Jun 20</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="200">
+        <span class="zodiac-symbol">♋</span>
+        <div class="zodiac-name">Karka (Cancer)</div>
+        <div class="zodiac-dates">Jun 21–Jul 22</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="250">
+        <span class="zodiac-symbol">♌</span>
+        <div class="zodiac-name">Simha (Leo)</div>
+        <div class="zodiac-dates">Jul 23–Aug 22</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="300">
+        <span class="zodiac-symbol">♍</span>
+        <div class="zodiac-name">Kanya (Virgo)</div>
+        <div class="zodiac-dates">Aug 23–Sep 22</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="350">
+        <span class="zodiac-symbol">♎</span>
+        <div class="zodiac-name">Tula (Libra)</div>
+        <div class="zodiac-dates">Sep 23–Oct 22</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="400">
+        <span class="zodiac-symbol">♏</span>
+        <div class="zodiac-name">Vrishchik (Scorpio)</div>
+        <div class="zodiac-dates">Oct 23–Nov 21</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="450">
+        <span class="zodiac-symbol">♐</span>
+        <div class="zodiac-name">Dhanu (Sagittarius)</div>
+        <div class="zodiac-dates">Nov 22–Dec 21</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="500">
+        <span class="zodiac-symbol">♑</span>
+        <div class="zodiac-name">Makar (Capricorn)</div>
+        <div class="zodiac-dates">Dec 22–Jan 19</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="550">
+        <span class="zodiac-symbol">♒</span>
+        <div class="zodiac-name">Kumbh (Aquarius)</div>
+        <div class="zodiac-dates">Jan 20–Feb 18</div>
+      </div>
+      <div class="zodiac-card" data-aos="zoom-in" data-aos-delay="600">
+        <span class="zodiac-symbol">♓</span>
+        <div class="zodiac-name">Meen (Pisces)</div>
+        <div class="zodiac-dates">Feb 19–Mar 20</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section id="reviews" class="bg-light text-center">
-    <div class="container" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>"Very accurate reading!" - Rahul</p>
-        <p>"Helped me in career decisions!" - Priya</p>
+<section id="testimonials">
+  <div class="container">
+    <div class="text-center" data-aos="fade-down">
+      <div class="section-tag">✦ Client Stories</div>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div class="gold-line" style="margin: 20px auto;"></div>
     </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>Anjali ji ki kundali reading bilkul sahi nikali. Mera career change 3 mahine mein ho gaya jaise unhone kaha tha. Bahut grateful hoon.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">🙏</div>
+          <div>
+            <div class="author-name">Rahul Verma</div>
+            <div class="author-city">Patna, Bihar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>Meri shadi ke liye Kundali Milan karvaya — Anjali ji ne jo bataya wo 100% sach tha. Aaj hum bahut khush hain. Unka guidance amazing hai!</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">💑</div>
+          <div>
+            <div class="author-name">Priya & Amit Singh</div>
+            <div class="author-city">Muzaffarpur, Bihar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>Business mein bahut loss ho raha tha. Anjali ji se Vastu consultation li aur gemstone pehna — 6 mahine mein business mein 40% growth aayi!</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">💰</div>
+          <div>
+            <div class="author-name">Suresh Gupta</div>
+            <div class="author-city">Begusarai, Bihar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-    <div class="container text-center">
-        <h2 data-aos="fade-down">Contact Us</h2>
-
-        <form class="mt-4" data-aos="fade-up" data-aos-delay="200">
-            <input class="form-control mb-3" placeholder="Name">
-            <input class="form-control mb-3" placeholder="Email">
-            <textarea class="form-control mb-3" placeholder="Message"></textarea>
-            <button class="btn btn-brand">Send</button>
-        </form>
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer style="background:#2c2c54; color:#fff; padding-top:60px;">
-
   <div class="container">
-    <div class="row">
+    <div class="contact-grid">
+      <div data-aos="fade-right">
+        <div class="section-tag">✦ Get in Touch</div>
+        <h2 class="section-title">Book Your Consultation</h2>
+        <div class="gold-line"></div>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:#bbb; font-style:italic; line-height:1.9; margin-bottom:40px;">
+          Take the first step toward cosmic clarity. We're here to guide you through life's most important decisions.
+        </p>
 
-      <!-- Brand -->
-      <div class="col-md-4 mb-4">
-        <h4 style="color:#7d5fff;">🔮 AstroGuide</h4>
-        <p>Your trusted astrology partner for life guidance, love, and career insights.</p>
-      </div>
+        <div class="contact-info-item">
+          <div class="contact-icon"><i class="ri-map-pin-line"></i></div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-value">Begusarai, Bihar — 851101</div>
+          </div>
+        </div>
 
-      <!-- Quick Links -->
-      <div class="col-md-2 mb-4">
-        <h5>Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#hero" class="text-white-50">Home</a></li>
-          <li><a href="#about" class="text-white-50">About</a></li>
-          <li><a href="#services" class="text-white-50">Services</a></li>
-          <li><a href="#gallery" class="text-white-50">Gallery</a></li>
-        </ul>
-      </div>
+        <div class="contact-info-item">
+          <div class="contact-icon"><i class="ri-phone-line"></i></div>
+          <div>
+            <div class="contact-label">Phone / WhatsApp</div>
+            <div class="contact-value">+91 7979922872</div>
+          </div>
+        </div>
 
-      <!-- Services -->
-      <div class="col-md-3 mb-4">
-        <h5>Services</h5>
-        <ul class="list-unstyled">
-          <li class="text-white-50">Birth Chart Reading</li>
-          <li class="text-white-50">Love Compatibility</li>
-          <li class="text-white-50">Career Guidance</li>
-        </ul>
-      </div>
+        <div class="contact-info-item">
+          <div class="contact-icon"><i class="ri-mail-line"></i></div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">aniketsrivastava57@gmail.com</div>
+          </div>
+        </div>
 
-      <!-- Contact -->
-      <div class="col-md-3 mb-4">
-        <h5>Contact</h5>
-        <p class="text-white-50 mb-1">📍 Begusarai, Bihar</p>
-        <p class="text-white-50 mb-1">📞 +91 7979922872</p>
-        <p class="text-white-50">✉️ aniketsrivastava57@gmail.com</p>
-
-        <!-- Social Icons -->
-        <div class="mt-3">
-          <a href="#" class="me-2 text-white"><i class="ri-facebook-fill"></i></a>
-          <a href="#" class="me-2 text-white"><i class="ri-instagram-fill"></i></a>
-          <a href="#" class="me-2 text-white"><i class="ri-twitter-fill"></i></a>
-          <a href="#" class="text-white"><i class="ri-linkedin-fill"></i></a>
+        <div class="contact-info-item">
+          <div class="contact-icon"><i class="ri-time-line"></i></div>
+          <div>
+            <div class="contact-label">Consultation Hours</div>
+            <div class="contact-value">Mon–Sat: 9 AM – 7 PM</div>
+          </div>
         </div>
       </div>
 
+      <div data-aos="fade-left">
+        <div style="background: var(--deep2); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 40px;">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" placeholder="+91 XXXXXXXXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Required</label>
+            <select class="form-control" style="color:#ddd;">
+              <option value="" style="background:#1c1638;">Select a service...</option>
+              <option style="background:#1c1638;">Janam Kundali Reading</option>
+              <option style="background:#1c1638;">Kundali Milan</option>
+              <option style="background:#1c1638;">Career & Business Guidance</option>
+              <option style="background:#1c1638;">Vastu Shastra</option>
+              <option style="background:#1c1638;">Numerology</option>
+              <option style="background:#1c1638;">Gemstone Recommendation</option>
+              <option style="background:#1c1638;">Astrology Class Enrollment</option>
+              <option style="background:#1c1638;">Product Order</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-control" placeholder="Tell us about your query..."></textarea>
+          </div>
+          <button class="btn-gold" style="width:100%; padding:16px; font-size:1rem;">Send Consultation Request ✨</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand">🔮 Astro Anjali Sharmma56</span>
+        <p class="footer-desc">Your trusted cosmic guide for over 20 years. We blend ancient Vedic wisdom with modern life guidance to help you navigate destiny with clarity and confidence.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="ri-facebook-fill"></i></a>
+          <a href="#" class="social-btn"><i class="ri-instagram-fill"></i></a>
+          <a href="#" class="social-btn"><i class="ri-youtube-fill"></i></a>
+          <a href="#" class="social-btn"><i class="ri-whatsapp-line"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#about">About Anjali Ji</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#classes">Classes</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Janam Kundali</a></li>
+          <li><a href="#">Kundali Milan</a></li>
+          <li><a href="#">Vastu Shastra</a></li>
+          <li><a href="#">Numerology</a></li>
+          <li><a href="#">Palmistry</a></li>
+          <li><a href="#">Muhurat</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">📍 Begusarai, Bihar</a></li>
+          <li><a href="tel:+917979922872">📞 +91 7979922872</a></li>
+          <li><a href="mailto:aniketsrivastava57@gmail.com">✉️ Email Us</a></li>
+          <li><a href="#">⏰ Mon–Sat: 9AM–7PM</a></li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Bottom -->
-    <div class="text-center mt-4 pt-4 border-top border-secondary">
-      <p class="mb-0 text-white-50">
-        © 2026 AstroGuide. All rights reserved. | Designed by Aniket
-      </p>
+    <div class="footer-bottom">
+      <p>© 2026 Astro Anjali Sharmma56. All rights reserved.</p>
+      <p>Designed with ✨ by Aniket</p>
     </div>
-
   </div>
 </footer>
 
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/917979922872" class="whatsapp-float" target="_blank">
+  <i class="ri-whatsapp-line"></i>
+</a>
 
-<!-- AOS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-  AOS.init({
-    duration: 800,
-    once: true
-  });
-</script>
+  AOS.init({ duration: 700, once: true, offset: 60 });
 
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  function toggleTheme() {
+    const body = document.body;
+    const btn = document.getElementById('themeBtn');
+    body.classList.toggle('light');
+    const isLight = body.classList.contains('light');
+    btn.textContent = isLight ? '🌑' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }
+
+  // Restore saved preference on load
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('themeBtn').textContent = '🌑';
+  }
+</script>
 </body>
 </html>

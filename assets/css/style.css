@@ -254,3 +254,16 @@ footer .line {
 .social-icons a:hover {
     background: var(--c-brand);
 }
+
+footer a {
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #7d5fff !important;
+}
+
+footer h5 {
+    margin-bottom: 15px;
+}

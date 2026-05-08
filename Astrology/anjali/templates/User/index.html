@@ -14,11 +14,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  
-<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/css/clash-display.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/clash-display.css' %}" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
   </head>
   <body>
+
     <!-- NAVBAR -->
     <nav class="navbar">
       <div class="container">
@@ -33,21 +34,24 @@
           <li><a href="#testimonials">Reviews</a></li>
           <li><a href="#contact" class="nav-cta">Contact Us</a></li>
         </ul>
-        <div style="display: flex; align-items: center; gap: 10px">
-          <button
-            class="theme-toggle"
-            onclick="toggleTheme()"
-            id="themeBtn"
-            title="Toggle Mode"
-          >
-            🌙
-          </button>
-          <button class="hamburger" onclick="toggleNav()">
-            <i class="ri-menu-3-line"></i>
-          </button>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle Mode">🌙</button>
+          <button class="hamburger" onclick="toggleNav()"><i class="ri-menu-3-line"></i></button>
         </div>
       </div>
     </nav>
+
+    <!-- DJANGO MESSAGES -->
+    {% if messages %}
+    <div class="messages-container" style="position:fixed;top:80px;right:20px;z-index:9999;max-width:380px;">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}"
+           style="background:#1a1a2e;border:1px solid #d4af37;color:#d4af37;padding:14px 20px;border-radius:8px;margin-bottom:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+        ✨ {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- HERO -->
     <section id="hero">
@@ -55,38 +59,25 @@
       <div class="hero-orb orb2"></div>
       <div class="hero-orb orb3"></div>
       <div class="hero-content">
-        <div class="hero-badge" data-aos="fade-down">
-          ✦ Trusted Since 2005 ✦
-        </div>
+        <div class="hero-badge" data-aos="fade-down">✦ Trusted Since 2005 ✦</div>
         <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
           Unlock the Secrets<br />of <span>Your Destiny</span>
         </h1>
         <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">
-          Ancient Vedic wisdom meets modern guidance — discover what the stars
-          hold for you
+          Ancient Vedic wisdom meets modern guidance — discover what the stars hold for you
         </p>
         <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
           <a href="#contact" class="btn-gold">Book a Consultation</a>
           <a href="#services" class="btn-outline">Explore Services</a>
         </div>
         <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
-          <div class="stat">
-            <div class="stat-num">15K+</div>
-            <div class="stat-label">Happy Clients</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">12+</div>
-            <div class="stat-label">Years Experience</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">4.9★</div>
-            <div class="stat-label">Average Rating</div>
-          </div>
+          <div class="stat"><div class="stat-num">15K+</div><div class="stat-label">Happy Clients</div></div>
+          <div class="stat"><div class="stat-num">{{ about.experience_years|default:"12" }}+</div><div class="stat-label">Years Experience</div></div>
+          <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
     <!-- ABOUT -->
     <section id="about">
       <div class="container">
@@ -95,96 +86,57 @@
           <div class="about-img-wrap" data-aos="fade-right">
             <div class="about-img-box">
               {% if about and about.image %}
-              <img
-                src="{{ about.image.url }}"
-                alt="{{ about.name }}"
-                class="about-img"
-              />
+                <img src="{{ about.image.url }}" alt="{{ about.name }}" class="about-img" />
               {% else %}
-              <span
-                style="font-size: 7rem; position: relative; z-index: 1"
-                id="aboutFallback"
-              >
-                🔮
-              </span>
+                <span style="font-size:7rem;position:relative;z-index:1" id="aboutFallback">🔮</span>
               {% endif %}
             </div>
-
             <div class="about-badge-float">
-              <span class="num">{{ about.experience_years }}+</span>
-              <span style="font-size: 0.73rem; color: #999">
-                Years of<br />
-                Practice
-              </span>
+              <span class="num">{{ about.experience_years|default:"12" }}+</span>
+              <span style="font-size:0.73rem;color:#999">Years of<br />Practice</span>
             </div>
           </div>
 
           <!-- CONTENT -->
           <div data-aos="fade-left">
-            <div class="section-tag">✦ About {{ about.name }}</div>
-
-            <h2 class="section-title">{{ about.heading }}</h2>
-
+            <div class="section-tag">✦ About {{ about.name|default:"Anjali Ji" }}</div>
+            <h2 class="section-title">{{ about.heading|default:"Master of Vedic Astrology" }}</h2>
             <div class="gold-line"></div>
-
-            <p
-              style="
-                font-family: &quot;Cormorant Garamond&quot;, serif;
-                font-size: 1.08rem;
-                line-height: 1.9;
-                color: #bbb;
-                font-style: italic;
-              "
-            >
-              {{ about.description }}
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:1.9;color:#bbb;font-style:italic;">
+              {{ about.description|default:"" }}
             </p>
-
             <ul class="about-list">
               {% for feature in about_features %}
-              <li>
-                <i class="ri-star-fill"></i>
-                {{ feature.title }}
-              </li>
+              <li><i class="ri-star-fill"></i> {{ feature.title }}</li>
               {% endfor %}
             </ul>
-
-            <div style="margin-top: 28px">
-              <a href="#contact" class="btn-gold"> Book Free Demo </a>
+            <div style="margin-top:28px">
+              <a href="#contact" class="btn-gold">Book Free Demo</a>
             </div>
           </div>
         </div>
       </div>
     </section>
+
     <!-- SERVICES -->
     <section id="services">
       <div class="container">
         <div class="text-center" data-aos="fade-down">
           <div class="section-tag">✦ What We Offer</div>
-
           <h2 class="section-title">Our Astrology Services</h2>
-
-          <div class="gold-line" style="margin: 18px auto"></div>
-
-          <p class="section-sub" style="margin: 0 auto">
-            Complete cosmic guidance for every area of your life
-          </p>
+          <div class="gold-line" style="margin:18px auto"></div>
+          <p class="section-sub" style="margin:0 auto">Complete cosmic guidance for every area of your life</p>
         </div>
-
         <div class="services-grid">
           {% for service in services %}
-          <div
-            class="service-card"
-            data-aos="fade-up"
-            data-aos-delay="{{ forloop.counter }}00"
-          >
+          <div class="service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
             <div class="service-icon">{{ service.icon }}</div>
-
             <h5>{{ service.title }}</h5>
-
             <p>{{ service.description }}</p>
-
             <div class="service-price">Starting ₹{{ service.price }}</div>
           </div>
+          {% empty %}
+          <p style="color:#888;text-align:center;grid-column:1/-1;">No services available yet.</p>
           {% endfor %}
         </div>
       </div>
@@ -195,345 +147,177 @@
       <div class="container">
         <div data-aos="fade-down">
           <div class="section-tag">✦ Learn Astrology</div>
-
           <h2 class="section-title">Astrology Classes & Courses</h2>
-
           <div class="gold-line"></div>
-
-          <p class="section-sub">
-            Learn the ancient science from an expert — online & offline batches
-            available
-          </p>
+          <p class="section-sub">Learn the ancient science from an expert — online & offline batches available</p>
         </div>
-
         <div class="classes-grid">
           {% for course in courses %}
-          <div
-            class="class-card"
-            data-aos="fade-up"
-            data-aos-delay="{{ forloop.counter }}00"
-          >
-            <div
-              class="class-accent"
-              style="background: {{ course.gradient}}"
-            ></div>
-
+          <div class="class-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+            <div class="class-accent" style="background:{{ course.gradient }}"></div>
             <div class="class-body">
-              <div
-                class="class-badge"
-                style="background: {{ course.badge_bg }}; color: {{ course.badge_color }}"
-              >
+              <div class="class-badge" style="background:{{ course.badge_bg }};color:{{ course.badge_color }}">
                 {{ course.level }}
               </div>
-
               <h5>{{ course.title }}</h5>
-
               <p>{{ course.description }}</p>
-
               <div class="class-meta">
-                <span class="class-meta-item">
-                  <i class="ri-time-line"></i>
-                  {{ course.duration }}
-                </span>
-
-                <span class="class-meta-item">
-                  <i class="ri-video-line"></i>
-                  {{ course.mode }}
-                </span>
-
-                <span class="class-meta-item">
-                  <i class="ri-user-line"></i>
-                  {{ course.students }}
-                </span>
+                <span class="class-meta-item"><i class="ri-time-line"></i> {{ course.duration }}</span>
+                <span class="class-meta-item"><i class="ri-video-line"></i> {{ course.mode }}</span>
+                <span class="class-meta-item"><i class="ri-user-line"></i> {{ course.students }}</span>
               </div>
-
               <div class="class-footer">
                 <div class="class-price">₹{{ course.price }}</div>
-
-                <a href="#contact" class="btn-small"> Enroll Now </a>
+                <a href="#contact" class="btn-small">Enroll Now</a>
               </div>
             </div>
           </div>
+          {% empty %}
+          <p style="color:#888;text-align:center;grid-column:1/-1;">No courses available yet.</p>
           {% endfor %}
         </div>
       </div>
     </section>
 
-    <!-- IMAGE GALLERY -->
+    <!-- IMAGE GALLERY — fully dynamic -->
     <section id="gallery">
       <div class="container">
         <div class="text-center" data-aos="fade-down">
           <div class="section-tag">✦ Our World</div>
           <h2 class="section-title">Photo Gallery</h2>
-          <div class="gold-line" style="margin: 16px auto"></div>
-          <p class="section-sub" style="margin: 0 auto">
-            A glimpse into our consultations, ceremonies & sacred space
-          </p>
+          <div class="gold-line" style="margin:16px auto"></div>
+          <p class="section-sub" style="margin:0 auto">A glimpse into our consultations, ceremonies & sacred space</p>
         </div>
+
         <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
-          <div class="gallery-item" onclick="openGallery(0)">
-            <div
-              class="g-inner"
-              style="
-                background: linear-gradient(135deg, #1c1638, #4a1472);
-                height: 340px;
-                font-size: 5.5rem;
-              "
-            >
-              🔮
+          {% for item in gallery_items %}
+          <div class="gallery-item{% if item.span_two_columns %} gallery-span-2{% endif %}"
+               onclick="openGallery({{ forloop.counter0 }})"
+               {% if item.span_two_columns %}style="grid-column:span 2"{% endif %}>
+
+            <div class="g-inner" style="background:{{ item.gradient }}">
+              {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.title }}"
+                     style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
+              {% else %}
+                {{ item.emoji }}
+              {% endif %}
             </div>
-            <div class="g-overlay"><span>Cosmic Consultation Space</span></div>
+
+            <div class="g-overlay"><span>{{ item.title }}</span></div>
             <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
           </div>
-          <div class="gallery-item" onclick="openGallery(1)">
-            <div
-              class="g-inner"
-              style="background: linear-gradient(135deg, #0d1f2d, #1a3a5c)"
-            >
-              🌙
-            </div>
-            <div class="g-overlay"><span>Night Sky Readings</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
-          <div class="gallery-item" onclick="openGallery(2)">
-            <div
-              class="g-inner"
-              style="background: linear-gradient(135deg, #2d1b00, #6b4400)"
-            >
-              💎
-            </div>
-            <div class="g-overlay"><span>Gemstone Collection</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
-          <div class="gallery-item" onclick="openGallery(3)">
-            <div
-              class="g-inner"
-              style="background: linear-gradient(135deg, #1a0533, #4a0080)"
-            >
-              ✨
-            </div>
-            <div class="g-overlay"><span>Vedic Chart Reading</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
-          <div class="gallery-item" onclick="openGallery(4)">
-            <div
-              class="g-inner"
-              style="background: linear-gradient(135deg, #0a1f0a, #1a4a1a)"
-            >
-              🌿
-            </div>
-            <div class="g-overlay"><span>Sacred Yantra Ceremony</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
-          <div
-            class="gallery-item"
-            onclick="openGallery(5)"
-            style="grid-column: span 2"
-          >
-            <div
-              class="g-inner"
-              style="
-                background: linear-gradient(135deg, #1f0a0a, #4a1a1a);
-                height: 160px;
-                font-size: 3.8rem;
-              "
-            >
-              🕯️
-            </div>
-            <div class="g-overlay"><span>Navgrah Pooja Ceremony</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
-          <div class="gallery-item" onclick="openGallery(6)">
-            <div
-              class="g-inner"
-              style="background: linear-gradient(135deg, #0a0a2e, #1a1a6e)"
-            >
-              ⭐
-            </div>
-            <div class="g-overlay"><span>Astrology Class Session</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
-          <div class="gallery-item" onclick="openGallery(7)">
-            <div
-              class="g-inner"
-              style="background: linear-gradient(135deg, #1f1a00, #4a4000)"
-            >
-              📿
-            </div>
-            <div class="g-overlay"><span>Rudraksha & Sacred Items</span></div>
-            <div class="g-expand"><i class="ri-zoom-in-line"></i></div>
-          </div>
+          {% empty %}
+          <p style="color:#888;text-align:center;grid-column:1/-1;">No gallery items yet.</p>
+          {% endfor %}
         </div>
       </div>
     </section>
 
-    <!-- Gallery Modal -->
+    <!-- Gallery Modal — driven by JS data injected below -->
     <div class="g-modal" id="galleryModal" onclick="handleModalClick(event)">
       <div class="g-modal-inner">
-        <div class="g-modal-close" onclick="closeGallery()">
-          <i class="ri-close-line"></i>
+        <div class="g-modal-close" onclick="closeGallery()"><i class="ri-close-line"></i></div>
+        <span class="g-modal-emoji" id="mEmoji"></span>
+        <div class="g-modal-img" id="mImg" style="display:none;margin:0 auto 16px;max-width:500px;border-radius:10px;overflow:hidden;">
+          <img id="mImgEl" src="" alt="" style="width:100%;display:block;" />
         </div>
-        <span class="g-modal-emoji" id="mEmoji">🔮</span>
-        <div class="g-modal-title" id="mTitle">Cosmic Consultation Space</div>
+        <div class="g-modal-title" id="mTitle"></div>
         <div class="g-modal-nav">
-          <button onclick="galleryNav(-1)">
-            <i class="ri-arrow-left-s-line"></i> Prev
-          </button>
-          <button onclick="galleryNav(1)">
-            Next <i class="ri-arrow-right-s-line"></i>
-          </button>
+          <button onclick="galleryNav(-1)"><i class="ri-arrow-left-s-line"></i> Prev</button>
+          <button onclick="galleryNav(1)">Next <i class="ri-arrow-right-s-line"></i></button>
         </div>
-        <div class="g-modal-counter" id="mCounter">1 / 8</div>
+        <div class="g-modal-counter" id="mCounter"></div>
       </div>
     </div>
+
+    <!-- Pass gallery data from Django to JS -->
+    <script>
+      const GALLERY_DATA = [
+        {% for item in gallery_items %}
+        {
+          title: "{{ item.title|escapejs }}",
+          emoji: "{{ item.emoji|escapejs }}",
+          image: "{% if item.image %}{{ item.image.url }}{% endif %}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      ];
+    </script>
 
     <!-- PRODUCTS -->
     <section id="products">
       <div class="container">
         <div class="text-center" data-aos="fade-down">
           <div class="section-tag">✦ Sacred Collection</div>
-
           <h2 class="section-title">Astrology Products</h2>
-
-          <div class="gold-line" style="margin: 18px auto"></div>
-
-          <p class="section-sub" style="margin: 0 auto">
-            Energized & blessed products for protection, prosperity & cosmic
-            harmony
-          </p>
+          <div class="gold-line" style="margin:18px auto"></div>
+          <p class="section-sub" style="margin:0 auto">Energized & blessed products for protection, prosperity & cosmic harmony</p>
         </div>
-
-        <div style="margin-top: 50px" data-aos="fade-up">
+        <div style="margin-top:50px" data-aos="fade-up">
           <div class="carousel-wrap" id="prodWrap">
             <div class="carousel-track" id="prodTrack">
               {% for product in products %}
               <div class="product-card">
-                <div
-                  class="product-img"
-                  style="background: {{ product.gradient }}"
-                >
+                <div class="product-img" style="background:{{ product.gradient }}">
                   {% if product.image %}
-                  <img
-                    src="{{ product.image.url }}"
-                    alt="{{ product.name }}"
-                    style="width: 100%; height: 100%; object-fit: cover"
-                  />
-                  {% else %} {{ product.icon }} {% endif %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100%;height:100%;object-fit:cover" />
+                  {% else %}
+                    {{ product.icon }}
+                  {% endif %}
                 </div>
-
                 <div class="product-body">
                   <div class="product-tag">{{ product.category }}</div>
-
                   <h5>{{ product.name }}</h5>
-
                   <p>{{ product.description }}</p>
-
                   <div class="product-footer">
                     <div class="product-price">₹{{ product.price }}</div>
-
-                    <a href="#contact" class="btn-small"> Order </a>
+                    <a href="#contact" class="btn-small">Order</a>
                   </div>
                 </div>
               </div>
+              {% empty %}
+              <p style="color:#888;text-align:center;padding:40px;">No products available yet.</p>
               {% endfor %}
             </div>
           </div>
-
           <div class="carousel-controls">
-            <button class="carousel-btn" onclick="slide('prod', -1)">
-              <i class="ri-arrow-left-s-line"></i>
-            </button>
-
+            <button class="carousel-btn" onclick="slide('prod', -1)"><i class="ri-arrow-left-s-line"></i></button>
             <div class="carousel-dots" id="prodDots"></div>
-
-            <button class="carousel-btn" onclick="slide('prod', 1)">
-              <i class="ri-arrow-right-s-line"></i>
-            </button>
+            <button class="carousel-btn" onclick="slide('prod', 1)"><i class="ri-arrow-right-s-line"></i></button>
           </div>
         </div>
       </div>
     </section>
+
     <!-- ZODIAC CAROUSEL -->
     <section id="zodiac">
       <div class="container">
         <div class="text-center" data-aos="fade-down">
           <div class="section-tag">✦ The Twelve Signs</div>
           <h2 class="section-title">Zodiac Gallery</h2>
-          <div class="gold-line" style="margin: 18px auto"></div>
+          <div class="gold-line" style="margin:18px auto"></div>
         </div>
-        <div style="margin-top: 46px" data-aos="fade-up">
+        <div style="margin-top:46px" data-aos="fade-up">
           <div class="carousel-wrap" id="zodWrap">
             <div class="carousel-track" id="zodTrack">
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♈</span>
-                <div class="zodiac-name">Mesh (Aries)</div>
-                <div class="zodiac-dates">Mar 21–Apr 19</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♉</span>
-                <div class="zodiac-name">Vrishabh (Taurus)</div>
-                <div class="zodiac-dates">Apr 20–May 20</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♊</span>
-                <div class="zodiac-name">Mithun (Gemini)</div>
-                <div class="zodiac-dates">May 21–Jun 20</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♋</span>
-                <div class="zodiac-name">Karka (Cancer)</div>
-                <div class="zodiac-dates">Jun 21–Jul 22</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♌</span>
-                <div class="zodiac-name">Simha (Leo)</div>
-                <div class="zodiac-dates">Jul 23–Aug 22</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♍</span>
-                <div class="zodiac-name">Kanya (Virgo)</div>
-                <div class="zodiac-dates">Aug 23–Sep 22</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♎</span>
-                <div class="zodiac-name">Tula (Libra)</div>
-                <div class="zodiac-dates">Sep 23–Oct 22</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♏</span>
-                <div class="zodiac-name">Vrishchik (Scorpio)</div>
-                <div class="zodiac-dates">Oct 23–Nov 21</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♐</span>
-                <div class="zodiac-name">Dhanu (Sagittarius)</div>
-                <div class="zodiac-dates">Nov 22–Dec 21</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♑</span>
-                <div class="zodiac-name">Makar (Capricorn)</div>
-                <div class="zodiac-dates">Dec 22–Jan 19</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♒</span>
-                <div class="zodiac-name">Kumbh (Aquarius)</div>
-                <div class="zodiac-dates">Jan 20–Feb 18</div>
-              </div>
-              <div class="zodiac-card">
-                <span class="zodiac-symbol">♓</span>
-                <div class="zodiac-name">Meen (Pisces)</div>
-                <div class="zodiac-dates">Feb 19–Mar 20</div>
-              </div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♈</span><div class="zodiac-name">Mesh (Aries)</div><div class="zodiac-dates">Mar 21–Apr 19</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♉</span><div class="zodiac-name">Vrishabh (Taurus)</div><div class="zodiac-dates">Apr 20–May 20</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♊</span><div class="zodiac-name">Mithun (Gemini)</div><div class="zodiac-dates">May 21–Jun 20</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♋</span><div class="zodiac-name">Karka (Cancer)</div><div class="zodiac-dates">Jun 21–Jul 22</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♌</span><div class="zodiac-name">Simha (Leo)</div><div class="zodiac-dates">Jul 23–Aug 22</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♍</span><div class="zodiac-name">Kanya (Virgo)</div><div class="zodiac-dates">Aug 23–Sep 22</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♎</span><div class="zodiac-name">Tula (Libra)</div><div class="zodiac-dates">Sep 23–Oct 22</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♏</span><div class="zodiac-name">Vrishchik (Scorpio)</div><div class="zodiac-dates">Oct 23–Nov 21</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♐</span><div class="zodiac-name">Dhanu (Sagittarius)</div><div class="zodiac-dates">Nov 22–Dec 21</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♑</span><div class="zodiac-name">Makar (Capricorn)</div><div class="zodiac-dates">Dec 22–Jan 19</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♒</span><div class="zodiac-name">Kumbh (Aquarius)</div><div class="zodiac-dates">Jan 20–Feb 18</div></div>
+              <div class="zodiac-card"><span class="zodiac-symbol">♓</span><div class="zodiac-name">Meen (Pisces)</div><div class="zodiac-dates">Feb 19–Mar 20</div></div>
             </div>
           </div>
           <div class="carousel-controls">
-            <button class="carousel-btn" onclick="slide('zod', -1)">
-              <i class="ri-arrow-left-s-line"></i>
-            </button>
+            <button class="carousel-btn" onclick="slide('zod', -1)"><i class="ri-arrow-left-s-line"></i></button>
             <div class="carousel-dots" id="zodDots"></div>
-            <button class="carousel-btn" onclick="slide('zod', 1)">
-              <i class="ri-arrow-right-s-line"></i>
-            </button>
+            <button class="carousel-btn" onclick="slide('zod', 1)"><i class="ri-arrow-right-s-line"></i></button>
           </div>
         </div>
       </div>
@@ -544,45 +328,33 @@
       <div class="container">
         <div class="text-center" data-aos="fade-down">
           <div class="section-tag">✦ Client Stories</div>
-
           <h2 class="section-title">What Our Clients Say</h2>
-
-          <div class="gold-line" style="margin: 18px auto"></div>
+          <div class="gold-line" style="margin:18px auto"></div>
         </div>
-
-        <div style="margin-top: 50px" data-aos="fade-up">
+        <div style="margin-top:50px" data-aos="fade-up">
           <div class="carousel-wrap" id="testiWrap">
             <div class="carousel-track" id="testiTrack">
               {% for testimonial in testimonials %}
               <div class="testimonial-card">
                 <div class="testimonial-stars">★★★★★</div>
-
                 <p>{{ testimonial.message }}</p>
-
                 <div class="testimonial-author">
                   <div class="author-avatar">{{ testimonial.emoji }}</div>
-
                   <div>
                     <div class="author-name">{{ testimonial.name }}</div>
-
                     <div class="author-city">{{ testimonial.city }}</div>
                   </div>
                 </div>
               </div>
+              {% empty %}
+              <p style="color:#888;text-align:center;padding:40px;">No testimonials yet.</p>
               {% endfor %}
             </div>
           </div>
-
           <div class="carousel-controls">
-            <button class="carousel-btn" onclick="slide('testi', -1)">
-              <i class="ri-arrow-left-s-line"></i>
-            </button>
-
+            <button class="carousel-btn" onclick="slide('testi', -1)"><i class="ri-arrow-left-s-line"></i></button>
             <div class="carousel-dots" id="testiDots"></div>
-
-            <button class="carousel-btn" onclick="slide('testi', 1)">
-              <i class="ri-arrow-right-s-line"></i>
-            </button>
+            <button class="carousel-btn" onclick="slide('testi', 1)"><i class="ri-arrow-right-s-line"></i></button>
           </div>
         </div>
       </div>
@@ -595,59 +367,48 @@
           <!-- LEFT -->
           <div data-aos="fade-right">
             <div class="section-tag">✦ Get in Touch</div>
-
             <h2 class="section-title">Book Your Consultation</h2>
-
             <div class="gold-line"></div>
-
-            <p
-              style="
-                font-family: &quot;Cormorant Garamond&quot;, serif;
-                font-size: 1.08rem;
-                color: #bbb;
-                font-style: italic;
-                line-height: 1.9;
-                margin-bottom: 36px;
-              "
-            >
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:#bbb;font-style:italic;line-height:1.9;margin-bottom:36px;">
               Take the first step toward cosmic clarity.
             </p>
 
             <div class="contact-info-item">
-              <div class="contact-icon">
-                <i class="ri-map-pin-line"></i>
-              </div>
-
+              <div class="contact-icon"><i class="ri-map-pin-line"></i></div>
               <div>
                 <div class="contact-label">Location</div>
-                <div class="contact-value">{{ site_settings.location }}</div>
+                <div class="contact-value">{{ site_settings.location|default:"Lucknow, Uttar Pradesh" }}</div>
               </div>
             </div>
 
             <div class="contact-info-item">
-              <div class="contact-icon">
-                <i class="ri-phone-line"></i>
-              </div>
-
+              <div class="contact-icon"><i class="ri-phone-line"></i></div>
               <div>
                 <div class="contact-label">Phone / WhatsApp</div>
-                <div class="contact-value">{{ site_settings.phone }}</div>
+                <div class="contact-value">
+                  <a href="tel:{{ site_settings.phone|default:'+919506619555' }}"
+                     style="color:inherit;text-decoration:none;">
+                    {{ site_settings.phone|default:"+91 9506619555" }}
+                  </a>
+                </div>
               </div>
             </div>
 
             <div class="contact-info-item">
-              <div class="contact-icon">
-                <i class="ri-mail-line"></i>
-              </div>
-
+              <div class="contact-icon"><i class="ri-mail-line"></i></div>
               <div>
                 <div class="contact-label">Email</div>
-                <div class="contact-value">{{ site_settings.email }}</div>
+                <div class="contact-value">
+                  <a href="mailto:{{ site_settings.email|default:'cchengemylife3@gmail.com' }}"
+                     style="color:inherit;text-decoration:none;">
+                    {{ site_settings.email|default:"cchengemylife3@gmail.com" }}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT -->
+          <!-- RIGHT — FORM -->
           <div data-aos="fade-left">
             <form method="POST" class="contact-form-box">
               {% csrf_token %}
@@ -655,40 +416,55 @@
               <div class="form-group">
                 <label class="form-label">Full Name</label>
                 {{ form.name }}
+                {% if form.name.errors %}
+                  <div class="form-error" style="color:#e74c3c;font-size:0.82rem;margin-top:4px;">
+                    {{ form.name.errors|join:", " }}
+                  </div>
+                {% endif %}
               </div>
 
               <div class="form-group">
                 <label class="form-label">Phone Number</label>
                 {{ form.phone }}
+                {% if form.phone.errors %}
+                  <div class="form-error" style="color:#e74c3c;font-size:0.82rem;margin-top:4px;">
+                    {{ form.phone.errors|join:", " }}
+                  </div>
+                {% endif %}
               </div>
 
               <div class="form-group">
                 <label class="form-label">Email Address</label>
                 {{ form.email }}
+                {% if form.email.errors %}
+                  <div class="form-error" style="color:#e74c3c;font-size:0.82rem;margin-top:4px;">
+                    {{ form.email.errors|join:", " }}
+                  </div>
+                {% endif %}
               </div>
 
               <div class="form-group">
                 <label class="form-label">Service Required</label>
                 {{ form.service }}
+                {% if form.service.errors %}
+                  <div class="form-error" style="color:#e74c3c;font-size:0.82rem;margin-top:4px;">
+                    {{ form.service.errors|join:", " }}
+                  </div>
+                {% endif %}
               </div>
 
               <div class="form-group">
                 <label class="form-label">Message</label>
                 {{ form.message }}
+                {% if form.message.errors %}
+                  <div class="form-error" style="color:#e74c3c;font-size:0.82rem;margin-top:4px;">
+                    {{ form.message.errors|join:", " }}
+                  </div>
+                {% endif %}
               </div>
 
-              <button
-                type="submit"
-                class="btn-gold"
-                style="
-                  width: 100%;
-                  padding: 14px;
-                  font-size: 0.95rem;
-                  border: none;
-                  cursor: pointer;
-                  border-radius: 4px;
-                "
-              >
+              <button type="submit" class="btn-gold"
+                style="width:100%;padding:14px;font-size:0.95rem;border:none;cursor:pointer;border-radius:4px;">
                 Send Consultation Request ✨
               </button>
             </form>
@@ -704,26 +480,19 @@
           <div>
             <span class="footer-brand">🔮 Astro Anjali Sharmma56</span>
             <p class="footer-desc">
-              Your trusted cosmic guide for over 12 years. We blend ancient
-              Vedic wisdom with modern life guidance to help you navigate
+              Your trusted cosmic guide for over {{ about.experience_years|default:"12" }} years.
+              We blend ancient Vedic wisdom with modern life guidance to help you navigate
               destiny with clarity and confidence.
             </p>
             <div class="footer-social">
-              <a href="#" class="social-btn"
-                ><i class="ri-facebook-fill"></i
-              ></a>
-              <a href="#" class="social-btn"
-                ><i class="ri-instagram-fill"></i
-              ></a>
+              <a href="#" class="social-btn"><i class="ri-facebook-fill"></i></a>
+              <a href="#" class="social-btn"><i class="ri-instagram-fill"></i></a>
               <a href="#" class="social-btn"><i class="ri-youtube-fill"></i></a>
-              <a
-                href="https://wa.me/919506619555"
-                class="social-btn"
-                target="_blank"
-                ><i class="ri-whatsapp-line"></i
-              ></a>
+              <a href="https://wa.me/{{ site_settings.whatsapp_number|default:'919506619555' }}"
+                 class="social-btn" target="_blank"><i class="ri-whatsapp-line"></i></a>
             </div>
           </div>
+
           <div>
             <div class="footer-heading">Quick Links</div>
             <ul class="footer-links">
@@ -735,43 +504,62 @@
               <li><a href="#testimonials">Testimonials</a></li>
             </ul>
           </div>
+
           <div>
             <div class="footer-heading">Services</div>
             <ul class="footer-links">
-              <li><a href="#">Janam Kundali</a></li>
-              <li><a href="#">Kundali Milan</a></li>
-              <li><a href="#">Vastu Shastra</a></li>
-              <li><a href="#">Numerology</a></li>
-              <li><a href="#">Palmistry</a></li>
-              <li><a href="#">Muhurat</a></li>
+              {% for service in services %}
+              <li><a href="#services">{{ service.title }}</a></li>
+              {% endfor %}
             </ul>
           </div>
+
           <div>
             <div class="footer-heading">Contact</div>
             <ul class="footer-links">
-              <li><a href="#">📍 Lucknow, UttarPradesh</a></li>
-              <li><a href="tel:+919506619555">📞 +91 9506619555</a></li>
+              <li><a href="#">📍 {{ site_settings.location|default:"Lucknow, Uttar Pradesh" }}</a></li>
               <li>
-                <a href="mailto:cchengemylife3@gmail.com"
-                  >✉️ cchengemylife3@gmail.com</a
-                >
+                <a href="tel:{{ site_settings.phone|default:'+919506619555' }}">
+                  📞 {{ site_settings.phone|default:"+91 9506619555" }}
+                </a>
+              </li>
+              <li>
+                <a href="mailto:{{ site_settings.email|default:'cchengemylife3@gmail.com' }}">
+                  ✉️ {{ site_settings.email|default:"cchengemylife3@gmail.com" }}
+                </a>
               </li>
               <li><a href="#">⏰ Mon–Sat: 9AM–7PM</a></li>
             </ul>
           </div>
         </div>
+
         <div class="footer-bottom">
-          <p>© 2026 Astro Anjali Sharmma56. All rights reserved.</p>
+          <p>© {% now "Y" %} Astro Anjali Sharmma56. All rights reserved.</p>
           <p>Designed with ✨ by Aniket</p>
         </div>
       </div>
     </footer>
 
-    <a href="https://wa.me/919506619555" class="whatsapp-float" target="_blank"
-      ><i class="ri-whatsapp-line"></i
-    ></a>
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/{{ site_settings.whatsapp_number|default:'919506619555' }}"
+       class="whatsapp-float" target="_blank">
+      <i class="ri-whatsapp-line"></i>
+    </a>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="{% static 'assest/js/main.js'%}"></script>
+    <!-- Fixed typo: 'assest' → 'assets' -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- Auto-dismiss Django messages after 4s -->
+    <script>
+      setTimeout(() => {
+        document.querySelectorAll('.messages-container .alert').forEach(el => {
+          el.style.transition = 'opacity 0.5s';
+          el.style.opacity = '0';
+          setTimeout(() => el.remove(), 500);
+        });
+      }, 4000);
+    </script>
+
   </body>
 </html>

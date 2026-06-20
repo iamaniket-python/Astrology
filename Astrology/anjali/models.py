@@ -1,4 +1,39 @@
+from io import BytesIO
+from PIL import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
+
+
+MAX_DIMENSION = 1200  # max width/height in pixels
+JPEG_QUALITY = 80
+
+
+def resize_image(image_field):
+    """Resize + compress an uploaded image in-memory before it's saved/uploaded.
+    Keeps aspect ratio, caps longest side at MAX_DIMENSION, re-encodes as JPEG
+    at JPEG_QUALITY to cut file size drastically."""
+    if not image_field:
+        return image_field
+
+    try:
+        img = Image.open(image_field)
+        img = img.convert('RGB')  # handles PNG/RGBA -> JPEG safely
+
+        img.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.LANCZOS)
+
+        buffer = BytesIO()
+        img.save(buffer, format='JPEG', quality=JPEG_QUALITY, optimize=True)
+        buffer.seek(0)
+
+        new_name = image_field.name.rsplit('.', 1)[0] + '.jpg'
+
+        return InMemoryUploadedFile(
+            buffer, 'ImageField', new_name, 'image/jpeg',
+            buffer.getbuffer().nbytes, None
+        )
+    except Exception:
+        # If anything goes wrong, fall back to the original file rather than crash
+        return image_field
 
 
 class SiteSettings(models.Model):
@@ -34,6 +69,11 @@ class About(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.image and hasattr(self.image, 'file'):
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
 
 
 class AboutFeature(models.Model):
@@ -85,7 +125,6 @@ class AstrologyCourse(models.Model):
     students    = models.CharField(max_length=50, default="", blank=True, help_text="e.g. '200+ Enrolled'")
     price       = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
-    # Visual customisation
     gradient    = models.CharField(max_length=150, default="linear-gradient(135deg,#1c1638,#4a1472)", blank=True)
     badge_bg    = models.CharField(max_length=100, default="rgba(212,175,55,0.15)",                   blank=True)
     badge_color = models.CharField(max_length=50,  default="#d4af37",                                 blank=True)
@@ -127,6 +166,11 @@ class Gallery(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if self.image and hasattr(self.image, 'file'):
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
+
 
 class Product(models.Model):
     """Cards in the 'Astrology Products' carousel."""
@@ -145,6 +189,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.image and hasattr(self.image, 'file'):
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
 
 
 class Testimonial(models.Model):

@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'anjali',
-    'adminlte3',
-    'adminlte3_theme',
+    
 
 ]
 

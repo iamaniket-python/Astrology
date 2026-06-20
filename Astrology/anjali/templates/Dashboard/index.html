@@ -1,0 +1,103 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_icon %}mdi-home{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block breadcrumb %}Overview{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-danger card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3">Services <i class="mdi mdi-star-circle mdi-24px float-end"></i></h4>
+        <h2 class="mb-3">{{ total_services }}</h2>
+        <a href="{% url 'service_list' %}" class="text-white"><u>Manage Services</u></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-info card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3">Courses <i class="mdi mdi-school mdi-24px float-end"></i></h4>
+        <h2 class="mb-3">{{ total_courses }}</h2>
+        <a href="{% url 'course_list' %}" class="text-white"><u>Manage Courses</u></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-success card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3">Gallery Photos <i class="mdi mdi-image mdi-24px float-end"></i></h4>
+        <h2 class="mb-3">{{ total_gallery }}</h2>
+        <a href="{% url 'gallery_list' %}" class="text-white"><u>Manage Gallery</u></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-primary card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3">Products <i class="mdi mdi-cart mdi-24px float-end"></i></h4>
+        <h2 class="mb-3">{{ total_products }}</h2>
+        <a href="{% url 'product_list' %}" class="text-white"><u>Manage Products</u></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-warning card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3">Testimonials <i class="mdi mdi-comment-quote mdi-24px float-end"></i></h4>
+        <h2 class="mb-3">{{ total_testimonials }}</h2>
+        <a href="{% url 'testimonial_list' %}" class="text-white"><u>Manage Testimonials</u></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-dark card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3">Inquiries <i class="mdi mdi-email mdi-24px float-end"></i></h4>
+        <h2 class="mb-1">{{ total_inquiries }}</h2>
+        {% if unread_inquiries %}
+          <h6 class="card-text">{{ unread_inquiries }} unread</h6>
+        {% else %}
+          <h6 class="card-text">All read</h6>
+        {% endif %}
+        <a href="{% url 'inquiry_list' %}" class="text-white"><u>View Inquiries</u></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Quick Actions</h4>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{% url 'about_edit' %}" class="btn btn-outline-primary">Edit About Section</a>
+          <a href="{% url 'gallery_add' %}" class="btn btn-outline-success">Add Gallery Photo</a>
+          <a href="{% url 'service_add' %}" class="btn btn-outline-info">Add New Service</a>
+          <a href="{% url 'product_add' %}" class="btn btn-outline-warning">Add New Product</a>
+          <a href="{% url 'settings_edit' %}" class="btn btn-outline-dark">Edit Site Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

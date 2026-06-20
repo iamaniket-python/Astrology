@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Dashboard{% endblock %} | Astro Anjali Sharmma</title>
+
+    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/ti-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <div class="container-scroller">
+
+      <!-- Navbar -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+          <a class="navbar-brand brand-logo" href="{% url 'dashboard' %}"><img src="{% static 'assets/images/logo.svg' %}" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="{% url 'dashboard' %}"><img src="{% static 'assets/images/logo-mini.svg' %}" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block"></div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="nav-profile-img">
+                  <img src="{% static 'assets/images/faces/face1.jpg' %}" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black">{{ request.user.username }}</p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="{% url 'admin_logout' %}">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout
+                </a>
+              </div>
+            </li>
+            <li class="nav-item nav-logout d-none d-lg-block">
+              <a class="nav-link" href="{% url 'admin_logout' %}">
+                <i class="mdi mdi-power"></i>
+              </a>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- Navbar end -->
+
+      <div class="container-fluid page-body-wrapper">
+
+        <!-- Sidebar -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="{% static 'assets/images/faces/face1.jpg' %}" alt="profile" />
+                  <span class="login-status online"></span>
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                  <span class="font-weight-bold mb-2">{{ request.user.username }}</span>
+                  <span class="text-secondary text-small">Superuser</span>
+                </div>
+                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'dashboard' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'dashboard' %}">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'about' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'about_edit' %}">
+                <span class="menu-title">About Section</span>
+                <i class="mdi mdi-account menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'service' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'service_list' %}">
+                <span class="menu-title">Services</span>
+                <i class="mdi mdi-star-circle menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'course' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'course_list' %}">
+                <span class="menu-title">Courses</span>
+                <i class="mdi mdi-school menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'gallery' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'gallery_list' %}">
+                <span class="menu-title">Gallery</span>
+                <i class="mdi mdi-image menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'product' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'product_list' %}">
+                <span class="menu-title">Products</span>
+                <i class="mdi mdi-cart menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'testimonial' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'testimonial_list' %}">
+                <span class="menu-title">Testimonials</span>
+                <i class="mdi mdi-comment-quote menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'inquiry' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'inquiry_list' %}">
+                <span class="menu-title">Inquiries</span>
+                <i class="mdi mdi-email menu-icon"></i>
+                {% if unread_inquiries_sidebar %}
+                  <span class="badge badge-gradient-danger ms-2">{{ unread_inquiries_sidebar }}</span>
+                {% endif %}
+              </a>
+            </li>
+
+            <li class="nav-item {% if active_menu == 'settings' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'settings_edit' %}">
+                <span class="menu-title">Site Settings</span>
+                <i class="mdi mdi-cog menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin_logout' %}">
+                <span class="menu-title">Logout</span>
+                <i class="mdi mdi-logout menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- Sidebar end -->
+
+        <div class="main-panel">
+          <div class="content-wrapper">
+
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                  <i class="mdi {% block page_icon %}mdi-home{% endblock %}"></i>
+                </span> {% block page_title %}Dashboard{% endblock %}
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    {% block breadcrumb %}Overview{% endblock %}
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            {% block content %}{% endblock %}
+
+          </div>
+          <!-- content-wrapper ends -->
+
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">© {% now "Y" %} Astro Anjali Sharmma. All rights reserved.</span>
+            </div>
+          </footer>
+
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <script src="{% static 'assets/vendors/chart.js/chart.umd.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'assets/js/off-canvas.js' %}"></script>
+    <script src="{% static 'assets/js/misc.js' %}"></script>
+    <script src="{% static 'assets/js/settings.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.cookie.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

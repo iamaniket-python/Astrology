@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from .decorators import superuser_required
-from dashboard_forms import SiteSettingsForm
+from ..dashboard_forms import SiteSettingsForm
 from ...models import SiteSettings
 
 

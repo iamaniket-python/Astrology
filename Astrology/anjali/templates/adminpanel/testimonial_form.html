@@ -1,0 +1,58 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}{% if testimonial %}Edit{% else %}Add{% endif %} Testimonial{% endblock %}
+{% block page_icon %}mdi-comment-quote{% endblock %}
+{% block page_title %}{% if testimonial %}Edit{% else %}Add{% endif %} Testimonial{% endblock %}
+{% block breadcrumb %}<a href="{% url 'testimonial_list' %}">Testimonials</a> / {% if testimonial %}Edit{% else %}Add{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{% if testimonial %}Edit Testimonial{% else %}New Testimonial{% endif %}</h4>
+        <form class="forms-sample" method="post">
+          {% csrf_token %}
+
+          <div class="form-group row">
+            <div class="col-sm-8">
+              <label for="{{ form.name.id_for_label }}">Client Name</label>
+              {{ form.name }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.emoji.id_for_label }}">Avatar Emoji</label>
+              {{ form.emoji }}
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="{{ form.city.id_for_label }}">City</label>
+            {{ form.city }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.message.id_for_label }}">Message</label>
+            {{ form.message }}
+            {% if form.message.errors %}<small class="text-danger">{{ form.message.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.order.id_for_label }}">Display Order</label>
+            {{ form.order }}
+          </div>
+
+          <div class="form-check form-check-flat form-check-primary mb-3">
+            <label class="form-check-label">
+              {{ form.is_active }} Active (visible on website)
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-gradient-primary me-2">Save Testimonial</button>
+          <a href="{% url 'testimonial_list' %}" class="btn btn-light">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

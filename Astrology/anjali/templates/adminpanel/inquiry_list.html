@@ -1,0 +1,72 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}Inquiries{% endblock %}
+{% block page_icon %}mdi-email{% endblock %}
+{% block page_title %}Contact Inquiries{% endblock %}
+{% block breadcrumb %}Inquiries{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-1">All Inquiries</h4>
+        <p class="card-description">Submissions from the website's consultation/booking form.</p>
+
+        {% if inquiries %}
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Service</th>
+                  <th>Message</th>
+                  <th>Submitted</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for inquiry in inquiries %}
+                  <tr {% if not inquiry.is_read %}class="table-warning"{% endif %}>
+                    <td>{{ inquiry.name }}</td>
+                    <td><a href="tel:{{ inquiry.phone }}">{{ inquiry.phone }}</a></td>
+                    <td><a href="mailto:{{ inquiry.email }}">{{ inquiry.email }}</a></td>
+                    <td>{{ inquiry.service|default:"—" }}</td>
+                    <td>{{ inquiry.message|truncatechars:50 }}</td>
+                    <td>{{ inquiry.submitted_at|date:"d M Y, h:i A" }}</td>
+                    <td>
+                      {% if inquiry.is_read %}
+                        <span class="badge badge-gradient-success">Read</span>
+                      {% else %}
+                        <span class="badge badge-gradient-danger">Unread</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if not inquiry.is_read %}
+                        <a href="{% url 'inquiry_mark_read' inquiry.pk %}" class="btn btn-sm btn-outline-success" title="Mark as read">
+                          <i class="mdi mdi-email-open"></i>
+                        </a>
+                      {% endif %}
+                      <a href="{% url 'inquiry_delete' inquiry.pk %}"
+                         class="btn btn-sm btn-outline-danger"
+                         onclick="return confirm('Delete this inquiry?');">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p class="text-muted text-center py-4">No inquiries received yet.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

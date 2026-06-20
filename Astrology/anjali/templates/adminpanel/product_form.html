@@ -1,0 +1,79 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}{% if product %}Edit{% else %}Add{% endif %} Product{% endblock %}
+{% block page_icon %}mdi-cart{% endblock %}
+{% block page_title %}{% if product %}Edit{% else %}Add{% endif %} Product{% endblock %}
+{% block breadcrumb %}<a href="{% url 'product_list' %}">Products</a> / {% if product %}Edit{% else %}Add{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{% if product %}Edit Product{% else %}New Product{% endif %}</h4>
+        <form class="forms-sample" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}<small class="text-danger">{{ form.name.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="{{ form.category.id_for_label }}">Category</label>
+              {{ form.category }}
+            </div>
+            <div class="col-sm-6">
+              <label for="{{ form.icon.id_for_label }}">Fallback Icon (emoji)</label>
+              {{ form.icon }}
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Image</label>
+            {% if form.instance.image %}
+              <div class="mb-2">
+                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.name }}" style="max-width:140px;border-radius:8px;">
+              </div>
+            {% endif %}
+            {{ form.image }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.gradient.id_for_label }}">Fallback Background Gradient</label>
+            {{ form.gradient }}
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="{{ form.price.id_for_label }}">Price (₹)</label>
+              {{ form.price }}
+            </div>
+            <div class="col-sm-6">
+              <label for="{{ form.order.id_for_label }}">Display Order</label>
+              {{ form.order }}
+            </div>
+          </div>
+
+          <div class="form-check form-check-flat form-check-primary mb-3 mt-3">
+            <label class="form-check-label">
+              {{ form.is_active }} Active (visible on website)
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-gradient-primary me-2">Save Product</button>
+          <a href="{% url 'product_list' %}" class="btn btn-light">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

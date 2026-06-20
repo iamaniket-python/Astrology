@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
 from .decorators import superuser_required
-from dashboard_forms import ServiceForm
+from ..dashboard_forms import ServiceForm
 from ...models import Service
 
 

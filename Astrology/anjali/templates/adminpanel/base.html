@@ -64,6 +64,7 @@
 
         <!-- Sidebar -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          {% with current_url_name=request.resolver_match.url_name %}
           <ul class="nav">
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
@@ -79,56 +80,56 @@
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'dashboard' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'dashboard' %}active{% endif %}">
               <a class="nav-link" href="{% url 'dashboard' %}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'about' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'about_edit' or current_url_name == 'about_feature_add' %}active{% endif %}">
               <a class="nav-link" href="{% url 'about_edit' %}">
                 <span class="menu-title">About Section</span>
                 <i class="mdi mdi-account menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'service' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'service_list' or current_url_name == 'service_add' or current_url_name == 'service_edit' %}active{% endif %}">
               <a class="nav-link" href="{% url 'service_list' %}">
                 <span class="menu-title">Services</span>
                 <i class="mdi mdi-star-circle menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'course' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'course_list' or current_url_name == 'course_add' or current_url_name == 'course_edit' %}active{% endif %}">
               <a class="nav-link" href="{% url 'course_list' %}">
                 <span class="menu-title">Courses</span>
                 <i class="mdi mdi-school menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'gallery' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'gallery_list' or current_url_name == 'gallery_add' or current_url_name == 'gallery_edit' %}active{% endif %}">
               <a class="nav-link" href="{% url 'gallery_list' %}">
                 <span class="menu-title">Gallery</span>
                 <i class="mdi mdi-image menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'product' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'product_list' or current_url_name == 'product_add' or current_url_name == 'product_edit' %}active{% endif %}">
               <a class="nav-link" href="{% url 'product_list' %}">
                 <span class="menu-title">Products</span>
                 <i class="mdi mdi-cart menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'testimonial' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'testimonial_list' or current_url_name == 'testimonial_add' or current_url_name == 'testimonial_edit' %}active{% endif %}">
               <a class="nav-link" href="{% url 'testimonial_list' %}">
                 <span class="menu-title">Testimonials</span>
                 <i class="mdi mdi-comment-quote menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'inquiry' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'inquiry_list' %}active{% endif %}">
               <a class="nav-link" href="{% url 'inquiry_list' %}">
                 <span class="menu-title">Inquiries</span>
                 <i class="mdi mdi-email menu-icon"></i>
@@ -138,7 +139,7 @@
               </a>
             </li>
 
-            <li class="nav-item {% if active_menu == 'settings' %}active{% endif %}">
+            <li class="nav-item {% if current_url_name == 'settings_edit' %}active{% endif %}">
               <a class="nav-link" href="{% url 'settings_edit' %}">
                 <span class="menu-title">Site Settings</span>
                 <i class="mdi mdi-cog menu-icon"></i>
@@ -152,6 +153,7 @@
               </a>
             </li>
           </ul>
+          {% endwith %}
         </nav>
         <!-- Sidebar end -->
 

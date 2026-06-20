@@ -1,0 +1,64 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}{% if item %}Edit{% else %}Add{% endif %} Photo{% endblock %}
+{% block page_icon %}mdi-image{% endblock %}
+{% block page_title %}{% if item %}Edit{% else %}Add{% endif %} Gallery Photo{% endblock %}
+{% block breadcrumb %}<a href="{% url 'gallery_list' %}">Gallery</a> / {% if item %}Edit{% else %}Add{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{% if item %}Edit Photo{% else %}New Photo{% endif %}</h4>
+        <form class="forms-sample" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}<small class="text-danger">{{ form.title.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Image</label>
+            {% if form.instance.image %}
+              <div class="mb-2">
+                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.title }}" style="max-width:160px;border-radius:8px;">
+              </div>
+            {% endif %}
+            {{ form.image }}
+            {% if form.image.errors %}<small class="text-danger">{{ form.image.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.emoji.id_for_label }}">Fallback Emoji</label>
+            {{ form.emoji }}
+            <small class="text-muted">Shown if no image is uploaded.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.gradient.id_for_label }}">Fallback Background Gradient</label>
+            {{ form.gradient }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.order.id_for_label }}">Display Order</label>
+            {{ form.order }}
+          </div>
+
+          <div class="form-check form-check-flat form-check-primary mb-3">
+            <label class="form-check-label">
+              {{ form.span_two_columns }} Span 2 columns in the gallery grid
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-gradient-primary me-2">Save Photo</button>
+          <a href="{% url 'gallery_list' %}" class="btn btn-light">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

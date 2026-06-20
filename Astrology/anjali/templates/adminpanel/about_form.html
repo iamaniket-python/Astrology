@@ -1,0 +1,90 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}About Section{% endblock %}
+{% block page_icon %}mdi-account{% endblock %}
+{% block page_title %}About Section{% endblock %}
+{% block breadcrumb %}About{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Astrologer Profile</h4>
+        <p class="card-description">This shows up in the "About" section of the public website.</p>
+        <form class="forms-sample" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}<small class="text-danger">{{ form.name.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.heading.id_for_label }}">Heading</label>
+            {{ form.heading }}
+            {% if form.heading.errors %}<small class="text-danger">{{ form.heading.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}<small class="text-danger">{{ form.description.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.experience_years.id_for_label }}">Years of Experience</label>
+            {{ form.experience_years }}
+            {% if form.experience_years.errors %}<small class="text-danger">{{ form.experience_years.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Profile Photo</label>
+            {% if form.instance.image %}
+              <div class="mb-2">
+                <img src="{{ form.instance.image.url }}" alt="{{ form.instance.name }}" style="max-width:120px;border-radius:8px;">
+              </div>
+            {% endif %}
+            {{ form.image }}
+            {% if form.image.errors %}<small class="text-danger">{{ form.image.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-gradient-primary me-2">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Highlights</h4>
+        <p class="card-description">Bullet points shown under the About section (e.g. "15+ Years Experience").</p>
+
+        {% if features %}
+          <ul class="list-group mb-3">
+            {% for feature in features %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><i class="mdi mdi-check-circle text-success me-2"></i>{{ feature.title }}</span>
+                <a href="{% url 'about_feature_delete' feature.pk %}"
+                   class="btn btn-sm btn-outline-danger"
+                   onclick="return confirm('Delete this highlight?');">
+                  <i class="mdi mdi-delete"></i>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">No highlights added yet.</p>
+        {% endif %}
+
+        <a href="{% url 'about_feature_add' %}" class="btn btn-outline-primary btn-sm">
+          <i class="mdi mdi-plus"></i> Add Highlight
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

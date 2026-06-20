@@ -1,0 +1,91 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}{% if course %}Edit{% else %}Add{% endif %} Course{% endblock %}
+{% block page_icon %}mdi-school{% endblock %}
+{% block page_title %}{% if course %}Edit{% else %}Add{% endif %} Course{% endblock %}
+{% block breadcrumb %}<a href="{% url 'course_list' %}">Courses</a> / {% if course %}Edit{% else %}Add{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-8 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{% if course %}Edit Course{% else %}New Course{% endif %}</h4>
+        <form class="forms-sample" method="post">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}<small class="text-danger">{{ form.title.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}<small class="text-danger">{{ form.description.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label for="{{ form.level.id_for_label }}">Level</label>
+              {{ form.level }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.duration.id_for_label }}">Duration</label>
+              {{ form.duration }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.mode.id_for_label }}">Mode</label>
+              {{ form.mode }}
+            </div>
+          </div>
+
+          <div class="form-group row mt-3">
+            <div class="col-sm-4">
+              <label for="{{ form.students.id_for_label }}">Students Label</label>
+              {{ form.students }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.price.id_for_label }}">Price (₹)</label>
+              {{ form.price }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.order.id_for_label }}">Display Order</label>
+              {{ form.order }}
+            </div>
+          </div>
+
+          <hr class="my-4">
+          <p class="card-description">Card colours (advanced — leave default if unsure)</p>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label for="{{ form.gradient.id_for_label }}">Background Gradient</label>
+              {{ form.gradient }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.badge_bg.id_for_label }}">Badge Background</label>
+              {{ form.badge_bg }}
+            </div>
+            <div class="col-sm-4">
+              <label for="{{ form.badge_color.id_for_label }}">Badge Text Color</label>
+              {{ form.badge_color }}
+            </div>
+          </div>
+
+          <div class="form-check form-check-flat form-check-primary mb-3 mt-3">
+            <label class="form-check-label">
+              {{ form.is_active }} Active (visible on website)
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-gradient-primary me-2">Save Course</button>
+          <a href="{% url 'course_list' %}" class="btn btn-light">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

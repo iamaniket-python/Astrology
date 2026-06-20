@@ -1,0 +1,38 @@
+{% extends 'adminpanel/base.html' %}
+{% load static %}
+
+{% block title %}Add Highlight{% endblock %}
+{% block page_icon %}mdi-account{% endblock %}
+{% block page_title %}Add Highlight{% endblock %}
+{% block breadcrumb %}<a href="{% url 'about_edit' %}">About</a> / Add Highlight{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">New Highlight</h4>
+        <p class="card-description">A short bullet point, e.g. "500+ Happy Clients".</p>
+        <form class="forms-sample" method="post">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}<small class="text-danger">{{ form.title.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.order.id_for_label }}">Display Order</label>
+            {{ form.order }}
+            {% if form.order.errors %}<small class="text-danger">{{ form.order.errors|striptags }}</small>{% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-gradient-primary me-2">Add Highlight</button>
+          <a href="{% url 'about_edit' %}" class="btn btn-light">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,11 +1,48 @@
+import os
 from django import forms
+from django.core.exceptions import ValidationError
+
 from ..models import (
     SiteSettings, About, AboutFeature, Service, AstrologyCourse,
     Gallery, Product, Testimonial,
 )
 
 
-class AboutForm(forms.ModelForm):
+# ---------------------------------------------------------------------------
+# Shared image validation
+# ---------------------------------------------------------------------------
+ALLOWED_IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
+MAX_IMAGE_SIZE_MB = 5
+
+
+def validate_image_file(image):
+    """Reusable validator: checks file extension and size for any ImageField."""
+    if not image:
+        return
+
+    ext = os.path.splitext(image.name)[1].lower()
+    if ext not in ALLOWED_IMAGE_EXTENSIONS:
+        raise ValidationError(
+            f"Unsupported file type '{ext}'. Allowed: {', '.join(ALLOWED_IMAGE_EXTENSIONS)}"
+        )
+
+    max_size_bytes = MAX_IMAGE_SIZE_MB * 1024 * 1024
+    if image.size > max_size_bytes:
+        raise ValidationError(f"Image too large. Maximum allowed size is {MAX_IMAGE_SIZE_MB}MB.")
+
+
+class ImageValidationMixin:
+    """Mixin for ModelForms with an `image` field — validates it on clean."""
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        # Only validate if a NEW file was uploaded (skip if unchanged on edit)
+        if image and hasattr(image, 'content_type'):
+            validate_image_file(image)
+        return image
+
+
+# ---------------------------------------------------------------------------
+class AboutForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = About
         fields = ['name', 'heading', 'description', 'experience_years', 'image']
@@ -65,7 +102,7 @@ class AstrologyCourseForm(forms.ModelForm):
         }
 
 
-class GalleryForm(forms.ModelForm):
+class GalleryForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = Gallery
         fields = ['title', 'emoji', 'image', 'gradient', 'span_two_columns', 'order']
@@ -79,7 +116,7 @@ class GalleryForm(forms.ModelForm):
         }
 
 
-class ProductForm(forms.ModelForm):
+class ProductForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = [

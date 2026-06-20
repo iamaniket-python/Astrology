@@ -154,6 +154,9 @@ STORAGES = {
     },
 }
 
+# Don't fail collectstatic if a CSS file references a missing map/asset (e.g. .css.map files)
+WHITENOISE_MANIFEST_STRICT = False
+
 
 # ---------------------------------------------------------------------------
 # AUTH REDIRECTS

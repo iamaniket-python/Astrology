@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Count, Q
 
 from .decorators import superuser_required
-from ..models import Service, Product, AstrologyCourse, Testimonial, Gallery, ContactInquiry
+from ...models import Service, Product, AstrologyCourse, Testimonial, Gallery, ContactInquiry
 
 
 @superuser_required

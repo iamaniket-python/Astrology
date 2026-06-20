@@ -11,7 +11,6 @@ import cloudinary
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env (local dev only — Railway injects env vars directly)
 load_dotenv(BASE_DIR / '.env')
 
 
@@ -26,10 +25,8 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else []
-# e.g. ALLOWED_HOSTS=yourapp.up.railway.app
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if os.environ.get('CSRF_TRUSTED_ORIGINS') else []
-# e.g. CSRF_TRUSTED_ORIGINS=https://yourapp.up.railway.app
 
 
 # ---------------------------------------------------------------------------
@@ -53,7 +50,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # FIX 1: Cache middleware — homepage GET requests cache honge
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    # ^^^ UpdateCache + FetchFromCache sandwich zaroori hai
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -87,16 +88,49 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
     DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,      
+            ssl_require=True,
+        )
     }
 else:
-    # Fallback for local dev only, if DATABASE_URL isn't set
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+
+# ---------------------------------------------------------------------------
+# FIX 2: CACHING — LocMemCache (no extra setup needed on Railway)
+# Agar Redis available ho toh usse use karo (aur bhi fast)
+# ---------------------------------------------------------------------------
+REDIS_URL = os.environ.get('REDIS_URL')
+
+if REDIS_URL:
+    # Redis available (fastest)
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': REDIS_URL,
+            'TIMEOUT': 300,  # 5 minutes
+        }
+    }
+else:
+    # No Redis — in-memory cache (still much faster than no cache)
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'anjali-cache',
+            'TIMEOUT': 300,  # 5 minutes
+        }
+    }
+
+# Per-view cache timeout (used by @cache_page in site_views.py)
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = 'anjali'
 
 
 # ---------------------------------------------------------------------------
@@ -120,7 +154,7 @@ USE_TZ = True
 
 
 # ---------------------------------------------------------------------------
-# STATIC FILES (theme CSS/JS — served via Whitenoise)
+# STATIC FILES
 # ---------------------------------------------------------------------------
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
@@ -128,12 +162,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # ---------------------------------------------------------------------------
-# MEDIA FILES — Cloudinary (all ImageField uploads: About, Gallery, Product)
+# MEDIA FILES — Cloudinary
 # ---------------------------------------------------------------------------
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    # FIX 3: Cloudinary automatic image optimization
+    'STATICFILES_MANIFEST_ROOT': BASE_DIR / 'staticfiles',
 }
 
 cloudinary.config(
@@ -150,12 +186,33 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        # FIX 4: CompressedManifestStaticFilesStorage — CSS/JS files
+        # hashed + gzip compressed → browser faster load karega
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
-# Don't fail collectstatic if a CSS file references a missing map/asset (e.g. .css.map files)
 WHITENOISE_MANIFEST_STRICT = False
+
+
+# ---------------------------------------------------------------------------
+# FIX 5: Session optimization — DB hit kam karo
+# ---------------------------------------------------------------------------
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+# cached_db = pehle cache check karta hai, phir DB — bahut fast
+
+
+# ---------------------------------------------------------------------------
+# FIX 6: Email (optional — consultation form ka email notification)
+# .env mein EMAIL_HOST_USER aur EMAIL_HOST_PASSWORD set karo
+# ---------------------------------------------------------------------------
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # ---------------------------------------------------------------------------

@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.core.files.base import ContentFile
 
 from .decorators import superuser_required
-from ..forms.dashboard_forms import ProductForm
-from ..models import Product
+from ..dashboard_forms import ProductForm
+from ...models import Product
 
 from PIL import Image as PilImage
 import io

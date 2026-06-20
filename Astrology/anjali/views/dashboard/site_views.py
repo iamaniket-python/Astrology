@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
-from ..forms.site_forms import ContactInquiryForm
-from ..models import (
+from ...forms.site_forms import ContactInquiryForm  
+from ...models import (
     About, Gallery, Service, AstrologyCourse, Product, Testimonial, SiteSettings,
 )
 

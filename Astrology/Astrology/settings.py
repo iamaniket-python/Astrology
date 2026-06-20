@@ -90,7 +90,7 @@ if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.parse(
             DATABASE_URL,
-            conn_max_age=600,      
+            conn_max_age=600,      # Connection pool — har request pe naya connection nahi
             ssl_require=True,
         )
     }
@@ -186,9 +186,10 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        # FIX 4: CompressedManifestStaticFilesStorage — CSS/JS files
-        # hashed + gzip compressed → browser faster load karega
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # CompressedStaticFilesStorage — gzip compression without manifest
+        # (CompressedManifestStaticFilesStorage use nahi kar sakte kyunki
+        #  chart.js ki .map file missing hai → collectstatic fail hoti)
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 

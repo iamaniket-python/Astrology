@@ -1,0 +1,237 @@
+/* ============================================================
+   ASTRO ANJALI SHARMMA — ADMIN THEME
+   Gold + Cosmic Purple, mystical but usable for daily admin work
+   Load this AFTER style.css in base.html / login.html
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --cosmic-ink:      #1A1025;   /* deepest text / headings */
+  --cosmic-purple:    #2D1B4E;   /* sidebar / navbar base */
+  --royal-purple:     #5B2C8F;   /* primary accent */
+  --royal-purple-2:   #7C3FB0;   /* lighter accent for gradients */
+  --gold:              #D4AF37;   /* signature accent */
+  --gold-soft:         #E8C766;   /* gradient partner for gold */
+  --cream:              #FBF7EE;   /* page background */
+  --card-white:         #FFFFFF;
+  --lavender-grey:      #8B7FA8;   /* secondary text */
+  --border-soft:        #ECE3D6;
+  --success:            #3FA66B;
+  --danger:             #C0405A;
+}
+
+body {
+  background: var(--cream);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--cosmic-ink);
+}
+
+h1, h2, h3, h4, .card-title, .page-title, .auth-form-light h4 {
+  font-family: 'Marcellus', serif;
+  letter-spacing: 0.2px;
+}
+
+/* ---------------- Navbar ---------------- */
+.navbar.default-layout-navbar {
+  background: linear-gradient(120deg, var(--cosmic-purple) 0%, var(--royal-purple) 100%);
+  box-shadow: 0 2px 14px rgba(45, 27, 78, 0.25);
+}
+.navbar .navbar-brand-wrapper {
+  background: transparent;
+}
+.navbar-nav-right .nav-profile-text p {
+  color: #fff !important;
+}
+.navbar-toggler span {
+  color: var(--gold) !important;
+}
+
+/* ---------------- Sidebar ---------------- */
+.sidebar {
+  background: var(--cosmic-ink);
+}
+.sidebar .nav-item .nav-link {
+  color: #cfc3e8;
+}
+.sidebar .nav-item .nav-link .menu-title {
+  color: #e9e1f7;
+}
+.sidebar .nav-item .nav-link .menu-icon {
+  color: var(--gold);
+}
+.sidebar .nav-item.active > .nav-link {
+  background: linear-gradient(90deg, rgba(212,175,55,0.16), transparent);
+  border-left: 3px solid var(--gold);
+}
+.sidebar .nav-item.active > .nav-link .menu-title,
+.sidebar .nav-item.active > .nav-link .menu-icon {
+  color: var(--gold);
+}
+.sidebar .nav-item .nav-link:hover {
+  background: rgba(212,175,55,0.08);
+}
+.sidebar .nav-profile-text .font-weight-bold {
+  color: #fff;
+}
+.sidebar .nav-profile-text .text-secondary {
+  color: var(--gold) !important;
+}
+
+/* ---------------- Page header ---------------- */
+.page-header .page-title-icon {
+  background: linear-gradient(135deg, var(--royal-purple), var(--royal-purple-2)) !important;
+  box-shadow: 0 4px 12px rgba(91,44,143,0.3);
+}
+.page-title {
+  color: var(--cosmic-ink);
+}
+.breadcrumb {
+  background: transparent;
+}
+.breadcrumb-item a {
+  color: var(--royal-purple);
+}
+
+/* ---------------- Cards ---------------- */
+.card {
+  background: var(--card-white);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(45,27,78,0.06);
+}
+.card-description {
+  color: var(--lavender-grey);
+}
+
+/* Dashboard stat cards — replace generic bootstrap gradients with theme gradients */
+.card.bg-gradient-danger   { background: linear-gradient(135deg, #B0395A, #7C3FB0) !important; }
+.card.bg-gradient-info     { background: linear-gradient(135deg, #5B2C8F, #7C3FB0) !important; }
+.card.bg-gradient-success  { background: linear-gradient(135deg, #3FA66B, #2D7A50) !important; }
+.card.bg-gradient-primary  { background: linear-gradient(135deg, #2D1B4E, #5B2C8F) !important; }
+.card.bg-gradient-warning  { background: linear-gradient(135deg, #D4AF37, #B8862E) !important; }
+.card.bg-gradient-dark     { background: linear-gradient(135deg, #1A1025, #3A2456) !important; }
+
+/* ---------------- Buttons ---------------- */
+.btn-gradient-primary {
+  background: linear-gradient(135deg, var(--royal-purple), var(--royal-purple-2));
+  border: none;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(91,44,143,0.3);
+}
+.btn-gradient-primary:hover,
+.btn-gradient-primary:focus {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  color: var(--cosmic-ink);
+  box-shadow: 0 3px 12px rgba(212,175,55,0.4);
+}
+.btn-outline-primary {
+  color: var(--royal-purple);
+  border-color: var(--royal-purple);
+}
+.btn-outline-primary:hover {
+  background: var(--royal-purple);
+  border-color: var(--royal-purple);
+}
+.btn-light {
+  background: var(--cream);
+  border: 1px solid var(--border-soft);
+  color: var(--cosmic-ink);
+}
+
+/* ---------------- Badges ---------------- */
+.badge-gradient-success  { background: linear-gradient(135deg, #3FA66B, #2D7A50) !important; }
+.badge-gradient-danger   { background: linear-gradient(135deg, #C0405A, #8E2E45) !important; }
+.badge-gradient-info     { background: linear-gradient(135deg, var(--royal-purple), var(--royal-purple-2)) !important; }
+.badge-gradient-secondary{ background: #C9C0DA !important; color: var(--cosmic-ink) !important; }
+
+/* ---------------- Tables ---------------- */
+.table thead th {
+  color: var(--lavender-grey);
+  border-bottom: 2px solid var(--border-soft);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(212,175,55,0.04);
+}
+.table-hover tbody tr:hover {
+  background-color: rgba(91,44,143,0.06);
+}
+.table-warning {
+  background-color: rgba(212,175,55,0.14) !important;
+}
+
+/* ---------------- Forms ---------------- */
+.form-control {
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--cream);
+}
+.form-control:focus {
+  border-color: var(--royal-purple);
+  box-shadow: 0 0 0 3px rgba(91,44,143,0.12);
+  background: #fff;
+}
+.form-group label {
+  color: var(--cosmic-ink);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.form-check-primary .form-check-input:checked {
+  background-color: var(--royal-purple);
+  border-color: var(--royal-purple);
+}
+
+/* ---------------- Alerts ---------------- */
+.alert-success {
+  background: rgba(63,166,107,0.12);
+  border-color: rgba(63,166,107,0.3);
+  color: #2D7A50;
+}
+.alert-danger {
+  background: rgba(192,64,90,0.1);
+  border-color: rgba(192,64,90,0.3);
+  color: #8E2E45;
+}
+
+/* ---------------- Footer ---------------- */
+.footer {
+  background: transparent;
+  border-top: 1px solid var(--border-soft);
+}
+.footer .text-muted {
+  color: var(--lavender-grey) !important;
+}
+
+/* ---------------- Login page ---------------- */
+.auth .auth-form-light {
+  background: var(--card-white);
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(45,27,78,0.12);
+}
+.content-wrapper.auth {
+  background: radial-gradient(circle at top, #3A2456 0%, var(--cosmic-ink) 70%);
+}
+.auth-form-light h4 {
+  color: var(--cosmic-ink);
+}
+.auth-form-btn {
+  background: linear-gradient(135deg, var(--royal-purple), var(--royal-purple-2)) !important;
+  border: none !important;
+}
+.auth-form-btn:hover {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft)) !important;
+  color: var(--cosmic-ink) !important;
+}
+
+/* ---------------- Misc ---------------- */
+::selection {
+  background: var(--gold);
+  color: var(--cosmic-ink);
+}
+a { color: var(--royal-purple); }
+a:hover { color: var(--gold); }

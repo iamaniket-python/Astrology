@@ -172,3 +172,29 @@
 </div>
 
 {% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.card-body h2').forEach(function (el) {
+    var text = el.textContent.trim();
+    var match = text.match(/\d+/);
+    if (!match) return;
+    var target = parseInt(match[0], 10);
+    var suffix = text.replace(match[0], '');
+    var current = 0;
+    var steps = 30;
+    var increment = target / steps;
+    var count = setInterval(function () {
+      current += increment;
+      if (current >= target) {
+        el.textContent = target + suffix;
+        clearInterval(count);
+      } else {
+        el.textContent = Math.floor(current) + suffix;
+      }
+    }, 25);
+  });
+});
+</script>
+{% endblock %}

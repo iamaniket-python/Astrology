@@ -252,3 +252,166 @@ a { color: var(--royal-purple); }
 a:hover { color: var(--gold-deep); }
 .list-group-item { border-color: var(--grey-300); color: var(--ink); }
 .list-group-item i.mdi-check-circle { color: var(--gold-deep) !important; }
+
+/* ============================================================
+   ANIMATIONS & MICRO-INTERACTIONS
+   ============================================================ */
+
+* { scroll-behavior: smooth; }
+
+/* Page load — content fades + rises in */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.content-wrapper > * { animation: pageIn 0.45s ease both; }
+.content-wrapper .row:nth-child(1) { animation-delay: 0.02s; }
+.content-wrapper .row:nth-child(2) { animation-delay: 0.08s; }
+.content-wrapper .row:nth-child(3) { animation-delay: 0.14s; }
+
+/* Sidebar menu items — slide + glow on hover */
+.sidebar .nav-item .nav-link {
+  transition: padding-left 0.25s cubic-bezier(.4,0,.2,1), background 0.25s ease, box-shadow 0.25s ease;
+}
+.sidebar .nav-item .nav-link:hover {
+  padding-left: 32px;
+  box-shadow: inset 0 0 24px rgba(212,175,55,0.10);
+}
+.sidebar .nav-item .nav-link .menu-icon {
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), color 0.2s ease;
+  display: inline-block;
+}
+.sidebar .nav-item .nav-link:hover .menu-icon {
+  transform: scale(1.25) rotate(-8deg);
+  color: var(--gold-soft);
+}
+.sidebar .nav-item.active > .nav-link {
+  animation: activeGlow 2.4s ease-in-out infinite;
+}
+@keyframes activeGlow {
+  0%, 100% { box-shadow: inset 3px 0 0 var(--gold), inset 0 0 0 rgba(212,175,55,0); }
+  50%      { box-shadow: inset 3px 0 0 var(--gold), inset 0 0 26px rgba(212,175,55,0.18); }
+}
+
+/* Cards — lift + tilt on hover, gold bar sweeps across on hover */
+.card {
+  transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(34,26,51,0.16);
+}
+.card::before {
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  transition: background-position 0.6s ease;
+}
+.card:hover::before {
+  background-position: 100% 0%;
+}
+
+/* Dashboard stat cards — number count-up handled in JS below, plus hover pop */
+.card.bg-gradient-danger, .card.bg-gradient-info, .card.bg-gradient-success,
+.card.bg-gradient-primary, .card.bg-gradient-warning, .card.bg-gradient-dark {
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+}
+.card.bg-gradient-danger:hover, .card.bg-gradient-info:hover, .card.bg-gradient-success:hover,
+.card.bg-gradient-primary:hover, .card.bg-gradient-warning:hover, .card.bg-gradient-dark:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.3);
+}
+.card-img-holder .card-img-absolute {
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+.card-img-holder:hover .card-img-absolute {
+  transform: rotate(15deg) scale(1.1);
+  opacity: 0.28 !important;
+}
+
+/* Buttons — shine sweep + press feedback */
+.btn-gradient-primary, .btn-outline-primary, .btn-outline-success, .btn-outline-info,
+.btn-outline-warning, .btn-outline-dark, .btn-outline-danger {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+}
+.btn-gradient-primary::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.btn-gradient-primary:hover::after { left: 125%; }
+.btn-gradient-primary:active, .btn-outline-primary:active, .btn-outline-success:active,
+.btn-outline-info:active, .btn-outline-warning:active, .btn-outline-dark:active, .btn-outline-danger:active {
+  transform: scale(0.96);
+}
+
+/* Table rows — staggered fade-in + hover slide */
+.table tbody tr {
+  animation: rowIn 0.4s ease both;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.table tbody tr:hover { transform: translateX(4px); }
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.table tbody tr:nth-child(1) { animation-delay: 0.02s; }
+.table tbody tr:nth-child(2) { animation-delay: 0.05s; }
+.table tbody tr:nth-child(3) { animation-delay: 0.08s; }
+.table tbody tr:nth-child(4) { animation-delay: 0.11s; }
+.table tbody tr:nth-child(5) { animation-delay: 0.14s; }
+.table tbody tr:nth-child(6) { animation-delay: 0.17s; }
+.table tbody tr:nth-child(7) { animation-delay: 0.20s; }
+.table tbody tr:nth-child(8) { animation-delay: 0.23s; }
+
+/* Badges — gentle pulse for unread/active states */
+.badge-gradient-danger { animation: badgePulse 1.8s ease-in-out infinite; }
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192,64,90,0.5); }
+  50%      { box-shadow: 0 0 0 5px rgba(192,64,90,0); }
+}
+
+/* Inputs — focus ring grows in smoothly */
+.form-control {
+  transition: border-color 0.2s ease, box-shadow 0.25s cubic-bezier(.2,.8,.2,1), background 0.2s ease;
+}
+
+/* Icons in page header — gentle float */
+.page-title-icon i {
+  animation: floatIcon 3s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+/* Login page — logo breathing glow, card rises in */
+.auth-form-light {
+  animation: authIn 0.6s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes authIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.brand-logo img {
+  animation: logoGlow 3.2s ease-in-out infinite;
+}
+@keyframes logoGlow {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(212,175,55,0.2), 0 8px 24px rgba(0,0,0,0.25); }
+  50%      { box-shadow: 0 0 0 8px rgba(212,175,55,0.32), 0 8px 30px rgba(0,0,0,0.3); }
+}
+
+/* Reduced motion — respect accessibility preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

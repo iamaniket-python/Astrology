@@ -219,7 +219,38 @@
     <script src="{% static 'assets/js/misc.js' %}"></script>
     <script src="{% static 'assets/js/settings.js' %}"></script>
     <script src="{% static 'assets/js/jquery.cookie.js' %}"></script>
+<!-- Sidebar mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+<script>
+  const overlay = document.getElementById('sidebarOverlay');
+  const sidebar = document.querySelector('.sidebar');
+  
+  // Navbar toggle button pe click
+  document.querySelectorAll('.navbar-toggler').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+    });
+  });
+
+  // Overlay pe click karo toh close
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  // Mobile pe nav link click karo toh auto-close
+  if (window.innerWidth < 992) {
+    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+      });
+    });
+  }
+</script>
     {% block extra_js %}{% endblock %}
+    
   </body>
 </html>

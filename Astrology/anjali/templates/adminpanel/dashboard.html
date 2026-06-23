@@ -9,164 +9,409 @@
 {% block content %}
 
 <style>
-  /* Mobile fixes */
+  @import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500;600;700&display=swap');
+
+  /* ── WELCOME BANNER ── */
+  .dash-banner {
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #EDE8F8;
+    padding: 22px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 16px rgba(107,63,160,0.07);
+    position: relative;
+    overflow: hidden;
+  }
+  .dash-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #D4AF37 0%, #9356C9 50%, #D4AF37 100%);
+  }
+  .dash-banner-orb {
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(147,86,201,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .dash-banner h3 {
+    font-family: 'Marcellus', serif;
+    font-size: 1.2rem;
+    color: #1C1530;
+    margin: 0 0 4px;
+  }
+  .dash-banner p {
+    font-size: 0.82rem;
+    color: #8B85A0;
+    margin: 0;
+  }
+  .dash-banner-pill {
+    background: linear-gradient(135deg, #6B3FA0, #9356C9);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(107,63,160,0.28);
+  }
+
+  /* ── SECTION LABEL ── */
+  .dash-section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #B0A8C8;
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* ── STAT CARDS ── */
+  .stat-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #EDE8F8;
+    box-shadow: 0 2px 12px rgba(28,21,48,0.05);
+    overflow: hidden;
+    transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), box-shadow 0.28s ease;
+    height: 100%;
+  }
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(28,21,48,0.1);
+  }
+  .stat-card-top {
+    height: 3.5px;
+    width: 100%;
+  }
+  .stat-card-body {
+    padding: 18px 20px 16px;
+  }
+  .stat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .stat-card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #A09AB8;
+  }
+  .stat-icon-box {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem;
+  }
+  .stat-card-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #1C1530;
+    line-height: 1;
+    margin-bottom: 14px;
+    letter-spacing: -1.5px;
+    font-family: 'Inter', sans-serif;
+  }
+  .stat-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #F3EFF9;
+    padding-top: 12px;
+  }
+  .stat-card-sub {
+    font-size: 0.73rem;
+    color: #B8B0CC;
+    font-weight: 500;
+  }
+  .stat-card-link {
+    font-size: 0.71rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 4px 13px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+  }
+  .stat-card-link:hover { text-decoration: none; }
+
+  .sc-purple .stat-card-top  { background: linear-gradient(90deg, #6B3FA0, #9356C9); }
+  .sc-purple .stat-icon-box  { background: rgba(107,63,160,0.09); color: #6B3FA0; }
+  .sc-purple .stat-card-link { background: rgba(107,63,160,0.07); color: #6B3FA0; }
+  .sc-purple .stat-card-link:hover { background: #6B3FA0; color: #fff; }
+
+  .sc-magenta .stat-card-top  { background: linear-gradient(90deg, #C2469B, #9356C9); }
+  .sc-magenta .stat-icon-box  { background: rgba(194,70,155,0.09); color: #C2469B; }
+  .sc-magenta .stat-card-link { background: rgba(194,70,155,0.07); color: #C2469B; }
+  .sc-magenta .stat-card-link:hover { background: #C2469B; color: #fff; }
+
+  .sc-green .stat-card-top  { background: linear-gradient(90deg, #2E9E5B, #1A7040); }
+  .sc-green .stat-icon-box  { background: rgba(46,158,91,0.09); color: #2E9E5B; }
+  .sc-green .stat-card-link { background: rgba(46,158,91,0.07); color: #2E9E5B; }
+  .sc-green .stat-card-link:hover { background: #2E9E5B; color: #fff; }
+
+  .sc-navy .stat-card-top  { background: linear-gradient(90deg, #3A2461, #6B3FA0); }
+  .sc-navy .stat-icon-box  { background: rgba(58,36,97,0.09); color: #3A2461; }
+  .sc-navy .stat-card-link { background: rgba(58,36,97,0.07); color: #3A2461; }
+  .sc-navy .stat-card-link:hover { background: #3A2461; color: #fff; }
+
+  .sc-gold .stat-card-top  { background: linear-gradient(90deg, #D4AF37, #B8862E); }
+  .sc-gold .stat-icon-box  { background: rgba(212,175,55,0.11); color: #9A6800; }
+  .sc-gold .stat-card-link { background: rgba(212,175,55,0.09); color: #9A6800; }
+  .sc-gold .stat-card-link:hover { background: #B8862E; color: #fff; }
+
+  .sc-dark .stat-card-top  { background: linear-gradient(90deg, #342055, #C2469B); }
+  .sc-dark .stat-icon-box  { background: rgba(52,32,85,0.09); color: #342055; }
+  .sc-dark .stat-card-link { background: rgba(52,32,85,0.07); color: #342055; }
+  .sc-dark .stat-card-link:hover { background: #342055; color: #fff; }
+
+  .unread-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(194,70,155,0.09);
+    color: #C2469B;
+    font-size: 0.69rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* ── QUICK ACTIONS ── */
+  .quick-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #EDE8F8;
+    box-shadow: 0 2px 12px rgba(28,21,48,0.05);
+    overflow: hidden;
+    position: relative;
+  }
+  .quick-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3.5px;
+    background: linear-gradient(90deg, #D4AF37, #9356C9, #D4AF37);
+  }
+  .quick-card .card-body { padding: 20px 24px 22px; }
+
+  .qa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid;
+    background: #fff;
+    transition: all 0.22s cubic-bezier(.2,.8,.2,1);
+    letter-spacing: 0.2px;
+  }
+  .qa-btn i { font-size: 1rem; }
+  .qa-btn:hover { transform: translateY(-2px); text-decoration: none; color: #fff; }
+  .qa-btn:active { transform: scale(0.97); }
+
+  .qa-about   { color: #6B3FA0; border-color: #D0BFED; }
+  .qa-about:hover   { background: #6B3FA0; border-color: #6B3FA0; box-shadow: 0 6px 16px rgba(107,63,160,0.22); }
+
+  .qa-photo   { color: #2E9E5B; border-color: #B3DFC5; }
+  .qa-photo:hover   { background: #2E9E5B; border-color: #2E9E5B; box-shadow: 0 6px 16px rgba(46,158,91,0.22); }
+
+  .qa-service { color: #1A6EA8; border-color: #ADD5ED; }
+  .qa-service:hover { background: #1A6EA8; border-color: #1A6EA8; box-shadow: 0 6px 16px rgba(26,110,168,0.22); }
+
+  .qa-product { color: #9A6800; border-color: #EACF78; }
+  .qa-product:hover { background: #B8862E; border-color: #B8862E; box-shadow: 0 6px 16px rgba(184,134,46,0.22); }
+
+  .qa-settings{ color: #342055; border-color: #C4B5DC; }
+  .qa-settings:hover{ background: #342055; border-color: #342055; box-shadow: 0 6px 16px rgba(52,32,85,0.22); }
+
+  .qa-inquiry { color: #C2469B; border-color: #EDB8D8; }
+  .qa-inquiry:hover { background: #C2469B; border-color: #C2469B; box-shadow: 0 6px 16px rgba(194,70,155,0.22); }
+
+  .qa-badge {
+    background: rgba(194,70,155,0.12);
+    color: #C2469B;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    transition: all 0.2s;
+  }
+  .qa-btn:hover .qa-badge { background: rgba(255,255,255,0.22); color: #fff; }
+
+  /* ── MOBILE ── */
   @media (max-width: 767px) {
-    .card-body h2 {
-      font-size: 1.8rem;
-    }
-    .card-body h4 {
-      font-size: 1rem;
-    }
-    .grid-margin {
-      margin-bottom: 1rem !important;
-    }
-    .quick-actions .btn {
-      width: 100%;
-      margin-bottom: 8px;
-      text-align: left;
-    }
-    .card-img-absolute {
-      width: 80px;
-      opacity: 0.5;
-    }
+    .dash-banner { flex-direction: column; gap: 12px; text-align: center; }
+    .stat-card-number { font-size: 1.9rem; }
+    .qa-btn { width: 100%; justify-content: center; }
   }
 </style>
 
-<!-- Row 1: Services, Courses, Gallery -->
-<div class="row">
-  <div class="col-6 col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-danger card-img-holder text-white">
-      <div class="card-body">
-        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-        <h4 class="font-weight-normal mb-3">
-          Services
-          <i class="mdi mdi-star-circle mdi-24px float-end"></i>
-        </h4>
-        <h2 class="mb-3">{{ total_services }}</h2>
-        <a href="{% url 'service_list' %}" class="text-white"><u>Manage</u></a>
+<!-- Welcome Banner -->
+<div class="dash-banner">
+  <div class="dash-banner-orb"></div>
+  <div>
+    <h3>Namaste, Anjali Ji 🙏</h3>
+    <p>Here's your cosmic admin overview for today.</p>
+  </div>
+  <div class="dash-banner-pill">✦ Astro Anjali Sharmma</div>
+</div>
+
+<!-- Stat Cards -->
+<div class="dash-section-label">At a glance</div>
+<div class="row g-3 mb-4">
+
+  <div class="col-6 col-md-4">
+    <div class="stat-card sc-purple">
+      <div class="stat-card-top"></div>
+      <div class="stat-card-body">
+        <div class="stat-card-header">
+          <div class="stat-card-label">Services</div>
+          <div class="stat-icon-box"><i class="mdi mdi-star-circle"></i></div>
+        </div>
+        <div class="stat-card-number" data-target="{{ total_services }}">0</div>
+        <div class="stat-card-footer">
+          <span class="stat-card-sub">Total active</span>
+          <a href="{% url 'service_list' %}" class="stat-card-link">Manage →</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-6 col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-info card-img-holder text-white">
-      <div class="card-body">
-        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-        <h4 class="font-weight-normal mb-3">
-          Courses
-          <i class="mdi mdi-school mdi-24px float-end"></i>
-        </h4>
-        <h2 class="mb-3">{{ total_courses }}</h2>
-        <a href="{% url 'course_list' %}" class="text-white"><u>Manage</u></a>
+  <div class="col-6 col-md-4">
+    <div class="stat-card sc-magenta">
+      <div class="stat-card-top"></div>
+      <div class="stat-card-body">
+        <div class="stat-card-header">
+          <div class="stat-card-label">Courses</div>
+          <div class="stat-icon-box"><i class="mdi mdi-school"></i></div>
+        </div>
+        <div class="stat-card-number" data-target="{{ total_courses }}">0</div>
+        <div class="stat-card-footer">
+          <span class="stat-card-sub">Total listed</span>
+          <a href="{% url 'course_list' %}" class="stat-card-link">Manage →</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-6 col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-success card-img-holder text-white">
-      <div class="card-body">
-        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-        <h4 class="font-weight-normal mb-3">
-          Gallery
-          <i class="mdi mdi-image mdi-24px float-end"></i>
-        </h4>
-        <h2 class="mb-3">{{ total_gallery }}</h2>
-        <a href="{% url 'gallery_list' %}" class="text-white"><u>Manage</u></a>
+  <div class="col-6 col-md-4">
+    <div class="stat-card sc-green">
+      <div class="stat-card-top"></div>
+      <div class="stat-card-body">
+        <div class="stat-card-header">
+          <div class="stat-card-label">Gallery</div>
+          <div class="stat-icon-box"><i class="mdi mdi-image"></i></div>
+        </div>
+        <div class="stat-card-number" data-target="{{ total_gallery }}">0</div>
+        <div class="stat-card-footer">
+          <span class="stat-card-sub">Total photos</span>
+          <a href="{% url 'gallery_list' %}" class="stat-card-link">Manage →</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Row 2: Products, Testimonials, Inquiries -->
-  <div class="col-6 col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-primary card-img-holder text-white">
-      <div class="card-body">
-        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-        <h4 class="font-weight-normal mb-3">
-          Products
-          <i class="mdi mdi-cart mdi-24px float-end"></i>
-        </h4>
-        <h2 class="mb-3">{{ total_products }}</h2>
-        <a href="{% url 'product_list' %}" class="text-white"><u>Manage</u></a>
+  <div class="col-6 col-md-4">
+    <div class="stat-card sc-navy">
+      <div class="stat-card-top"></div>
+      <div class="stat-card-body">
+        <div class="stat-card-header">
+          <div class="stat-card-label">Products</div>
+          <div class="stat-icon-box"><i class="mdi mdi-cart"></i></div>
+        </div>
+        <div class="stat-card-number" data-target="{{ total_products }}">0</div>
+        <div class="stat-card-footer">
+          <span class="stat-card-sub">In catalogue</span>
+          <a href="{% url 'product_list' %}" class="stat-card-link">Manage →</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-6 col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-warning card-img-holder text-white">
-      <div class="card-body">
-        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-        <h4 class="font-weight-normal mb-3">
-          Testimonials
-          <i class="mdi mdi-comment-quote mdi-24px float-end"></i>
-        </h4>
-        <h2 class="mb-3">{{ total_testimonials }}</h2>
-        <a href="{% url 'testimonial_list' %}" class="text-white"><u>Manage</u></a>
+  <div class="col-6 col-md-4">
+    <div class="stat-card sc-gold">
+      <div class="stat-card-top"></div>
+      <div class="stat-card-body">
+        <div class="stat-card-header">
+          <div class="stat-card-label">Testimonials</div>
+          <div class="stat-icon-box"><i class="mdi mdi-comment-quote"></i></div>
+        </div>
+        <div class="stat-card-number" data-target="{{ total_testimonials }}">0</div>
+        <div class="stat-card-footer">
+          <span class="stat-card-sub">Client reviews</span>
+          <a href="{% url 'testimonial_list' %}" class="stat-card-link">Manage →</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-6 col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-dark card-img-holder text-white">
-      <div class="card-body">
-        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-        <h4 class="font-weight-normal mb-3">
-          Inquiries
-          <i class="mdi mdi-email mdi-24px float-end"></i>
-        </h4>
-        <h2 class="mb-1">{{ total_inquiries }}</h2>
+  <div class="col-6 col-md-4">
+    <div class="stat-card sc-dark">
+      <div class="stat-card-top"></div>
+      <div class="stat-card-body">
+        <div class="stat-card-header">
+          <div class="stat-card-label">Inquiries</div>
+          <div class="stat-icon-box"><i class="mdi mdi-email"></i></div>
+        </div>
+        <div class="stat-card-number" data-target="{{ total_inquiries }}">0</div>
         {% if unread_inquiries %}
-          <h6 class="card-text">{{ unread_inquiries }} unread</h6>
-        {% else %}
-          <h6 class="card-text">All read</h6>
+          <div class="unread-tag">
+            <i class="mdi mdi-circle" style="font-size:0.45rem;"></i>
+            {{ unread_inquiries }} unread
+          </div>
         {% endif %}
-        <a href="{% url 'inquiry_list' %}" class="text-white"><u>View</u></a>
+        <div class="stat-card-footer">
+          <span class="stat-card-sub">{% if unread_inquiries %}Needs attention{% else %}All caught up ✓{% endif %}</span>
+          <a href="{% url 'inquiry_list' %}" class="stat-card-link">View →</a>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
 
 <!-- Quick Actions -->
-<div class="row">
-  <div class="col-12 grid-margin">
-    <div class="card">
-      <div class="card-body quick-actions">
-        <h4 class="card-title mb-3">Quick Actions</h4>
-        <div class="row g-2">
-          <div class="col-6 col-md-auto">
-            <a href="{% url 'about_edit' %}" class="btn btn-outline-primary w-100">
-              <i class="mdi mdi-account-edit me-1"></i> About
-            </a>
-          </div>
-          <div class="col-6 col-md-auto">
-            <a href="{% url 'gallery_add' %}" class="btn btn-outline-success w-100">
-              <i class="mdi mdi-image-plus me-1"></i> Add Photo
-            </a>
-          </div>
-          <div class="col-6 col-md-auto">
-            <a href="{% url 'service_add' %}" class="btn btn-outline-info w-100">
-              <i class="mdi mdi-plus-circle me-1"></i> Add Service
-            </a>
-          </div>
-          <div class="col-6 col-md-auto">
-            <a href="{% url 'product_add' %}" class="btn btn-outline-warning w-100">
-              <i class="mdi mdi-cart-plus me-1"></i> Add Product
-            </a>
-          </div>
-          <div class="col-6 col-md-auto">
-            <a href="{% url 'settings_edit' %}" class="btn btn-outline-dark w-100">
-              <i class="mdi mdi-cog me-1"></i> Settings
-            </a>
-          </div>
-          <div class="col-6 col-md-auto">
-            <a href="{% url 'inquiry_list' %}" class="btn btn-outline-danger w-100">
-              <i class="mdi mdi-email me-1"></i> Inquiries
-              {% if unread_inquiries %}
-                <span class="badge bg-danger ms-1">{{ unread_inquiries }}</span>
-              {% endif %}
-            </a>
-          </div>
-        </div>
-      </div>
+<div class="dash-section-label">Quick actions</div>
+<div class="quick-card">
+  <div class="card-body">
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{% url 'about_edit' %}" class="qa-btn qa-about">
+        <i class="mdi mdi-account-edit"></i> About
+      </a>
+      <a href="{% url 'gallery_add' %}" class="qa-btn qa-photo">
+        <i class="mdi mdi-image-plus"></i> Add Photo
+      </a>
+      <a href="{% url 'service_add' %}" class="qa-btn qa-service">
+        <i class="mdi mdi-plus-circle"></i> Add Service
+      </a>
+      <a href="{% url 'product_add' %}" class="qa-btn qa-product">
+        <i class="mdi mdi-cart-plus"></i> Add Product
+      </a>
+      <a href="{% url 'settings_edit' %}" class="qa-btn qa-settings">
+        <i class="mdi mdi-cog"></i> Settings
+      </a>
+      <a href="{% url 'inquiry_list' %}" class="qa-btn qa-inquiry">
+        <i class="mdi mdi-email"></i> Inquiries
+        {% if unread_inquiries %}
+          <span class="qa-badge">{{ unread_inquiries }}</span>
+        {% endif %}
+      </a>
     </div>
   </div>
 </div>
@@ -176,24 +421,23 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.card-body h2').forEach(function (el) {
-    var text = el.textContent.trim();
-    var match = text.match(/\d+/);
-    if (!match) return;
-    var target = parseInt(match[0], 10);
-    var suffix = text.replace(match[0], '');
-    var current = 0;
-    var steps = 30;
-    var increment = target / steps;
-    var count = setInterval(function () {
-      current += increment;
-      if (current >= target) {
-        el.textContent = target + suffix;
-        clearInterval(count);
-      } else {
-        el.textContent = Math.floor(current) + suffix;
-      }
-    }, 25);
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+  document.querySelectorAll('.stat-card-number[data-target]').forEach(function (el) {
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    if (isNaN(target) || target === 0) { el.textContent = '0'; return; }
+    var duration = 950, startTime = null;
+    function animate(ts) {
+      if (!startTime) startTime = ts;
+      var p = Math.min((ts - startTime) / duration, 1);
+      el.textContent = Math.floor(easeOutExpo(p) * target);
+      if (p < 1) requestAnimationFrame(animate);
+      else el.textContent = target;
+    }
+    new IntersectionObserver(function (entries, obs) {
+      if (entries[0].isIntersecting) { requestAnimationFrame(animate); obs.disconnect(); }
+    }, { threshold: 0.3 }).observe(el);
   });
 });
 </script>
